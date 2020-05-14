@@ -54,7 +54,7 @@
      <!-- list -->
      <act_window 
           id = "act_service_allocate"
-          name = "Service Alocated"
+          name = "Service Allocated"
           res_model = "service.allocate"
           view_mode = "tree,form"
           />
@@ -98,4 +98,5 @@
           sequence = "105"
           action = "act_service_allocate_timeline"
           />
+
 </odoo>

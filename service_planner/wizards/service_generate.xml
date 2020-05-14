@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Copyright 2019 Stefano Consolaro (Ass. PNLUG - Gruppo Odoo <http://odoo.pnlug.it>)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl) -->
+
+<odoo>
+    <record model="ir.ui.view" id="service_generate_form">
+        <field name="name">service.generate.wizard</field>
+        <field name="model">service.generate</field>
+        <field name="arch" type="xml">
+            <form string="Generate Services">
+                <group>
+                    <group>
+                        <field name="service_template_id" options="{'no_create_edit': True}"/>
+                        <field name="service_global_id" options="{'no_create_edit': True}"/>
+                        <field name="date_init"/>
+                        <field name="date_stop"/>
+                        <field name="interval"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="generate_service" string="Generate" type="object"
+                        class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="service_generate_wizard">
+        <field name="name">Generate Services</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.generate</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="service_generate_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

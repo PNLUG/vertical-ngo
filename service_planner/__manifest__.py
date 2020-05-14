@@ -18,11 +18,16 @@
         'hr',
         'product',
         'web_timeline',
+        'web_widget_color',
         ],
     "data": [
         'security/ir.model.access.csv',
+        'wizards/service_generate.xml',
         'views/service_menu.xml',
         'views/service_view.xml',
+        ],
+    "css": [
+        'static/src/css/service_planner.css',
         ],
     'installable': True,
 }

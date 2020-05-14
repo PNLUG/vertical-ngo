@@ -6,7 +6,7 @@ from odoo import fields, models
 
 class ExpectedEquipment(models.Model):
     """
-    Equipments list expected on a service
+    Equipment list expected on a service
     """
 
     # model
