@@ -7,6 +7,7 @@ import datetime
 
 class ServiceGenerateWizard(models.TransientModel):
     _name = 'service.generate'
+    _description = 'Generate a list of services'
 
     # template service reference
     service_template_id = fields.Many2one('service.template',
@@ -63,6 +64,5 @@ class ServiceGenerateWizard(models.TransientModel):
                 "start_sched"            : date_pointer,
                 }
             self.env['service.allocate'].create(new_service)
-            print('Add '+(date_pointer.strftime("%d-%m-%Y %H:%M:%S")))
 
         return

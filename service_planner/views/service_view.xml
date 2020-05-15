@@ -10,9 +10,6 @@
     <record model="ir.ui.view" id="service_global_tree">
         <field name="name">Global Service</field>
         <field name="model">service.global</field>
-        <field name="help" type="html">
-            <p class="oe_view_nocontent_smiling_face">Create the first Service</p>
-        </field>
         <field name="arch" type="xml">
             <tree string="Templates">
                 <field name="name"/>
@@ -65,9 +62,6 @@
     <record model="ir.ui.view" id="service_template_tree">
         <field name="name">Service Template</field>
         <field name="model">service.template</field>
-        <field name="help" type="html">
-            <p class="oe_view_nocontent_smiling_face">Create the first Service Template</p>
-        </field>
         <field name="arch" type="xml">
             <tree string="Templates">
                 <field name="name"/>
@@ -84,6 +78,10 @@
         <field name="model">service.template</field>
         <field name="arch" type="xml">
             <form string="Service Template">
+                <header>
+                    <button name="%(service_planner.service_generate_wizard)d"
+                        string="Generate Services" type="action" class="oe_highlight"/>
+                </header>
             <sheet>
                 <h1><field name="name"/></h1>
                 <group>
@@ -105,12 +103,6 @@
                         <field name="exp_vehicle_ids"/>
                     </group>
                 </group>
-                <group>
-                    <button string="_todo_ Generate services" type="object" 
-                            class="oe_highlight"
-                            name="generate_service"/>
-                    <field name="product_id"/>
-                </group>
             </sheet>
             </form>
         </field>
@@ -120,9 +112,6 @@
     <record model="ir.ui.view" id="service_allocate_tree">
         <field name="name">Service Allocated</field>
         <field name="model">service.allocate</field>
-        <field name="help" type="html">
-            <p class="oe_view_nocontent_smiling_face">Create the first Allocated Service</p>
-        </field>
         <field name="arch" type="xml">
             <tree string="Allocated">
                 <field name="service_template_id"/>

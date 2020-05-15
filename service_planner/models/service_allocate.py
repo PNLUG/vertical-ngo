@@ -44,7 +44,8 @@ class ServiceAllocate(models.Model):
     # scheduled start time
     start_sched = fields.Datetime('Start scheduled', required=True)
     # scheduled start time
-    stop_sched = fields.Datetime('Stop scheduled', compute='_compute_stop_sched', store=True)
+    stop_sched = fields.Datetime('Stop scheduled',
+                                 compute='_compute_stop_sched', store=True)
     # effective start time
     start_real = fields.Datetime('Start real')
     # effective stop time
@@ -60,7 +61,9 @@ class ServiceAllocate(models.Model):
                 slot = service.service_template_id.duration
                 # avoid empty value of duration
                 slot = slot if slot > 0 else 1
-                service.stop_sched = service.start_sched + datetime.timedelta(hours=slot)
+                service.stop_sched = (service.start_sched +
+                                      datetime.timedelta(hours=slot))
+
         return
 
     @api.depends('employee_ids')
@@ -109,6 +112,5 @@ class ServiceAllocate(models.Model):
                 "start_sched"            : date_pointer,
                 }
             self.create(new_service)
-            print('Add '+(date_pointer.strftime("%d-%m-%Y %H:%M:%S")))
 
         return

@@ -2,101 +2,88 @@
 
 <!-- Copyright 2019 Stefano Consolaro (Ass. PNLUG - Gruppo Odoo <http://odoo.pnlug.it>)
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl) -->
-     
+
 <odoo>
     <!-- add menu voice for Service -->
 
-     <!-- manage Service Planner -->
-     <!-- menu voice -->
-     <menuitem
+    <!-- manage Template  -->
+    <menuitem
+        id = "menu_template"
+        name = "Template"
+        parent = "menu_service_planner"
+        sequence = "120"
+        />
+
+    <!-- Reporting -->
+    <!-- _todo_ -->
+    <act_window
+        id = "act_service_report"
+        name = "Report"
+        res_model = "service.allocate"
+        view_mode = "tree"
+        />
+
+    <menuitem
+        id = "menu_service_report"
+        name = "Report"
+        parent = "menu_service_planner"
+        sequence = "140"
+        action = "act_service_report"
+        />
+
+    <!-- manage Service Planner -->
+    <menuitem
         id="menu_service_planner"
         name="Service Planner"
         web_icon="service_planner,static/description/icon.png"
         sequence="110"/>
 
-    <!-- manage Global Services list -->
-    <!-- action -->
-    <act_window 
-          id = "act_service_global"
-          name = "Global Service"
-          res_model = "service.global"
-          view_mode = "tree,form" 
-          /> 
+    <!-- manage Global Services -->
+    <act_window
+        id = "act_service_global"
+        name = "Global Service"
+        res_model = "service.global"
+        view_mode = "tree,form"
+        />
 
-    <!-- menu voice -->
-    <menuitem 
-          id = "menu_service_global"
-          name = "Global Service"
-          parent = "menu_service_planner"
-          sequence = "190"
-          action = "act_service_global"
-          />
+    <menuitem
+        id = "menu_service_global"
+        name = "Global Service"
+        parent = "menu_template"
+        sequence = "20"
+        action = "act_service_global"
+        />
 
-    <!-- manage Template Services list -->
-    <!-- action -->
-    <act_window 
-          id = "act_service_template"
-          name = "Service Template"
-          res_model = "service.template"
-          view_mode = "tree,form" 
-          />
+    <!-- manage Template Services -->
+    <act_window
+        id = "act_service_template"
+        name = "Service Template"
+        res_model = "service.template"
+        view_mode = "tree,form"
+        />
 
-    <!-- menu voice -->
-    <menuitem 
-          id = "menu_service_template"
-          name = "Service Template"
-          parent = "menu_service_planner"
-          sequence = "150"
-          action = "act_service_template"
-          />
+    <menuitem
+        id = "menu_service_template"
+        name = "Service Template"
+        parent = "menu_template"
+        sequence = "5"
+        action = "act_service_template"
+        />
 
-     <!-- manage Services Allocated -->
-     <!-- list -->
-     <act_window 
-          id = "act_service_allocate"
-          name = "Service Allocated"
-          res_model = "service.allocate"
-          view_mode = "tree,form"
-          />
+    <!-- manage Services Allocated -->
+    <act_window
+        id = "act_service_allocate_cal"
+        name = "Service"
+        res_model = "service.allocate"
+        view_mode = "calendar,timeline,tree,form"
+        />
 
-     <menuitem 
-          id = "menu_service_allocate"
-          name = "Service Allocated"
-          parent = "menu_service_planner"
-          sequence = "110"
-          action = "act_service_allocate"
-          />
-
-      <!-- calendar -->
-      <act_window 
-          id = "act_service_allocate_cal"
-          name = "Service Calendar"
-          res_model = "service.allocate"
-          view_mode = "calendar"
-          />
-
-     <menuitem 
-          id = "menu_service_allocate_cal"
-          name = "Service Calendar"
-          parent = "menu_service_planner"
-          sequence = "100"
-          action = "act_service_allocate_cal"
-          />
-
-      <!-- timeline -->
-      <act_window 
-          id = "act_service_allocate_timeline"
-          name = "Service Timeline"
-          res_model = "service.allocate"
-          view_mode = "timeline"
-          />
-
-     <menuitem 
-          id = "menu_service_allocate_timeline"
-          name = "Service Timeline"
-          parent = "menu_service_planner"
-          sequence = "105"
-          action = "act_service_allocate_timeline"
-          />
+    <menuitem
+        id = "menu_service_allocate_cal"
+        name = "Service"
+        parent = "menu_service_planner"
+        sequence = "100"
+        action = "act_service_allocate_cal"
+        />
 
 </odoo>
