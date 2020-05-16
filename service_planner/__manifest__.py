@@ -17,14 +17,17 @@
         'maintenance',
         'hr',
         'product',
+        # OCA modules
         'web_timeline',
         'web_widget_color',
+        'hr_skill',
         ],
     "data": [
         'security/ir.model.access.csv',
         'wizards/service_generate.xml',
         'views/service_menu.xml',
         'views/service_view.xml',
+        'views/fleet_vehicle_views.xml',
         ],
     "css": [
         'static/src/css/service_planner.css',

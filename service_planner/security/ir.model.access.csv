@@ -1,8 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_expected_vehicle,access_expected_vehicle,model_expected_vehicle,base.group_user,1,1,1,1
-access_expected_equipment,access_expected_equipment,model_expected_equipment,base.group_user,1,1,1,1
-access_expected_job,access_expected_job,model_expected_job,base.group_user,1,1,1,1
-access_service_global,access_service_global,model_service_global,base.group_user,1,1,1,1
+access_expected_vhcl_type,access_expected_vhcl_type,model_expected_vhcl_type,base.group_user,1,1,1,1
+access_expected_eqpmnt_cat,access_expected_eqpmnt_cat,model_expected_eqpmnt_cat,base.group_user,1,1,1,1
+access_expected_skill,access_expected_skill,model_expected_skill,base.group_user,1,1,1,1
+access_service_container,access_service_container,model_service_container,base.group_user,1,1,1,1
 access_service_state,access_service_state,model_service_state,base.group_user,1,1,1,1
 access_service_template,access_service_template,model_service_template,base.group_user,1,1,1,1
 access_service_allocate,access_service_allocate,model_service_allocate,base.group_user,1,1,1,1
+access_vehicle_type,access_vehicle_type,model_vehicle_type,base.group_user,1,1,1,1 

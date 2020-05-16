@@ -14,11 +14,11 @@ class ServiceGenerateWizard(models.TransientModel):
                                           string='Template service',
                                           required=True,
                                           )
-    # global service reference
-    service_global_id = fields.Many2one('service.global',
-                                        string='Global service',
-                                        required=True,
-                                        )
+    # container service reference
+    service_container_id = fields.Many2one('service.container',
+                                           string='Container service',
+                                           required=True,
+                                           )
 
     # scheduled start time
     date_init = fields.Datetime('Start date', required=True)
@@ -27,19 +27,19 @@ class ServiceGenerateWizard(models.TransientModel):
     # standard duration
     interval = fields.Integer('Interval', required=True, default=8)
 
-    # utility to filter global services to template's global services
+    # utility to filter container services to template's container services
     @api.onchange('service_template_id')
-    def _get_template_global(self):
+    def _get_template_container(self):
         """
-        Extract list of global services associated to the template service
+        Extract list of container services associated to the template service
         """
-        global_services = []
+        container_services = []
         # reset value to avoid errors
-        self.service_global_id = [(5)]
-        for glob_srv in self.service_template_id.service_global_ids:
-            global_services.append(glob_srv.id)
+        self.service_container_id = [(5)]
+        for glob_srv in self.service_template_id.service_container_ids:
+            container_services.append(glob_srv.id)
 
-        return {'domain': {'service_global_id': [('id', 'in', global_services)]}}
+        return {'domain': {'service_container_id': [('id', 'in', container_services)]}}
 
     def generate_service(self):
         """
@@ -60,7 +60,7 @@ class ServiceGenerateWizard(models.TransientModel):
 
             new_service = {
                 "service_template_id"   : self.service_template_id.id,
-                "service_global_id"     : self.service_global_id.id,
+                "service_container_id"     : self.service_container_id.id,
                 "start_sched"            : date_pointer,
                 }
             self.env['service.allocate'].create(new_service)

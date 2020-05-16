@@ -6,6 +6,13 @@
 <odoo>
     <!-- add menu voice for Service -->
 
+    <!-- manage Service Planner -->
+    <menuitem
+        id="menu_service_planner"
+        name="Service Planner"
+        web_icon="service_planner,static/description/icon.png"
+        sequence="110"/>
+
     <!-- manage Template  -->
     <menuitem
         id = "menu_template"
@@ -31,27 +38,20 @@
         action = "act_service_report"
         />
 
-    <!-- manage Service Planner -->
-    <menuitem
-        id="menu_service_planner"
-        name="Service Planner"
-        web_icon="service_planner,static/description/icon.png"
-        sequence="110"/>
-
-    <!-- manage Global Services -->
+    <!-- manage Container Services -->
     <act_window
-        id = "act_service_global"
-        name = "Global Service"
-        res_model = "service.global"
+        id = "act_service_container"
+        name = "Container Service"
+        res_model = "service.container"
         view_mode = "tree,form"
         />
 
     <menuitem
-        id = "menu_service_global"
-        name = "Global Service"
+        id = "menu_service_container"
+        name = "Container Service"
         parent = "menu_template"
         sequence = "20"
-        action = "act_service_global"
+        action = "act_service_container"
         />
 
     <!-- manage Template Services -->
@@ -68,6 +68,54 @@
         parent = "menu_template"
         sequence = "5"
         action = "act_service_template"
+        />
+
+    <!-- manage Expected Skills -->
+    <act_window
+        id = "act_expected_skill"
+        name = "Expected Skills"
+        res_model = "expected.skill"
+        view_mode = "tree,form"
+        />
+
+    <menuitem
+        id = "menu_expected_skill"
+        name = "Expected Skills"
+        parent = "menu_template"
+        sequence = "100"
+        action = "act_expected_skill"
+        />
+
+    <!-- manage Expected Equipment Categories -->
+    <act_window
+        id = "act_expected_eqpmt_category"
+        name = "Expected Equipment Categories"
+        res_model = "expected.eqpmnt_cat"
+        view_mode = "tree,form"
+        />
+
+    <menuitem
+        id = "menu_expected_eqpmt_category"
+        name = "Expected Equipment Categories"
+        parent = "menu_template"
+        sequence = "110"
+        action = "act_expected_eqpmt_category"
+        />
+
+    <!-- manage Expected Vehicle Types -->
+    <act_window
+        id = "act_expected_vhcl_type"
+        name = "Expected Vehicle Types"
+        res_model = "expected.vhcl_type"
+        view_mode = "tree,form"
+        />
+
+    <menuitem
+        id = "menu_expected_vhcl_type"
+        name = "Expected Vehicle Types"
+        parent = "menu_template"
+        sequence = "120"
+        action = "act_expected_vhcl_type"
         />
 
     <!-- manage Services Allocated -->

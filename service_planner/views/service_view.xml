@@ -7,9 +7,9 @@
     <!-- Define views for plan and levels -->
     
     <!-- ############# GLOBAL SERVICE #################### -->
-    <record model="ir.ui.view" id="service_global_tree">
-        <field name="name">Global Service</field>
-        <field name="model">service.global</field>
+    <record model="ir.ui.view" id="service_container_tree">
+        <field name="name">Container Service</field>
+        <field name="model">service.container</field>
         <field name="arch" type="xml">
             <tree string="Templates">
                 <field name="name"/>
@@ -18,13 +18,13 @@
         </field>
      </record>
 
-    <!-- ############# EXPECTED JOB #################### -->
-    <record model="ir.ui.view" id="expected_job_tree">
-        <field name="name">Expected Job</field>
-        <field name="model">expected.job</field>
+    <!-- ############# EXPECTED SKILL #################### -->
+    <record model="ir.ui.view" id="expected_skill_tree">
+        <field name="name">Expected Skill</field>
+        <field name="model">expected.skill</field>
         <field name="arch" type="xml">
-            <tree string="Jobs">
-                <field name="job_id"/>
+            <tree string="Skills">
+                <field name="skill_id"/>
                 <field name="min_qty" string="Min Qty"/>
                 <field name="max_qty" string="Max Qty"/>
             </tree>
@@ -32,12 +32,12 @@
     </record>
 
     <!-- ############# EXPECTED EQUIPMENT #################### -->
-    <record model="ir.ui.view" id="expected_equipment_tree">
-        <field name="name">Expected Equipment</field>
-        <field name="model">expected.equipment</field>
+    <record model="ir.ui.view" id="expected_equipment_category_tree">
+        <field name="name">Expected Equipment Category</field>
+        <field name="model">expected.eqpmnt_cat</field>
         <field name="arch" type="xml">
-            <tree string="Equipment">
-                <field name="equipment_id"/>
+            <tree string="Equipment Category">
+                <field name="eqp_cat_id"/>
                 <field name="min_qty" string="Min Qty"/>
                 <field name="max_qty" string="Max Qty"/>
             </tree>
@@ -45,12 +45,12 @@
     </record>
 
         <!-- ############# EXPECTED VEHICLES #################### -->
-    <record model="ir.ui.view" id="expected_vehicle_tree">
-        <field name="name">Expected Vehicle</field>
-        <field name="model">expected.vehicle</field>
+    <record model="ir.ui.view" id="expected_vehicle_type_tree">
+        <field name="name">Expected Vehicle Types</field>
+        <field name="model">expected.vhcl_type</field>
         <field name="arch" type="xml">
-            <tree string="Vehicle">
-                <field name="vehicle_id"/>
+            <tree string="Vehicle Type">
+                <field name="vehicle_type_id"/>
                 <field name="min_qty" string="Min Qty"/>
                 <field name="max_qty" string="Max Qty"/>
             </tree>
@@ -65,10 +65,10 @@
         <field name="arch" type="xml">
             <tree string="Templates">
                 <field name="name"/>
-                <field name="service_global_ids" widget="many2many_tags"/>
-                <field name="exp_job_ids" widget="many2many_tags"/>
+                <field name="service_container_ids" widget="many2many_tags"/>
+                <field name="exp_skill_ids" widget="many2many_tags"/>
                 <field name="exp_vehicle_ids" widget="many2many_tags"/>
-                <field name="exp_equipment_ids" widget="many2many_tags"/>
+                <field name="exp_eqp_cat_ids" widget="many2many_tags"/>
             </tree>
         </field>
      </record>
@@ -82,12 +82,12 @@
                     <button name="%(service_planner.service_generate_wizard)d"
                         string="Generate Services" type="action" class="oe_highlight"/>
                 </header>
-            <sheet>
                 <h1><field name="name"/></h1>
                 <group>
                     <group>
-                        <label for="service_global_ids" string="Global Services"/>
-                        <field name="service_global_ids" nolabel="1"/>
+                        <group>
+                        <field name="service_container_ids"/>
+                        </group>
                         <br/>
                         <group>
                             <group>
@@ -98,12 +98,11 @@
                         </group>
                     </group>
                     <group class="sp_td_label">
-                        <field name="exp_job_ids"/>
-                        <field name="exp_equipment_ids"/>
+                        <field name="exp_skill_ids"/>
+                        <field name="exp_eqp_cat_ids"/>
                         <field name="exp_vehicle_ids"/>
                     </group>
                 </group>
-            </sheet>
             </form>
         </field>
      </record>
@@ -112,10 +111,13 @@
     <record model="ir.ui.view" id="service_allocate_tree">
         <field name="name">Service Allocated</field>
         <field name="model">service.allocate</field>
+        <field name="service_color"/>
         <field name="arch" type="xml">
             <tree string="Allocated">
+                <field name="service_container_id"/>
+                <field name="service_color"
+                    widget="color" options="{'readonly_mode': 'color'}"/>
                 <field name="service_template_id"/>
-                <field name="service_global_id"/>
                 <field name="start_sched"/>
                 <field name="stop_sched"/>
                 <field name="start_real"/>
@@ -141,7 +143,7 @@
                     <group>
                         <group>
                             <field name="service_template_id"/>
-                            <field name="service_global_id" options="{'no_create_edit': True}"/>
+                            <field name="service_container_id" options="{'no_create_edit': True}"/>
                         </group>
                         <group>
                         </group>
@@ -196,7 +198,7 @@
             <timeline date_start="start_sched"
                       date_stop="stop_sched"
                       string="Service"
-                      default_group_by="service_global_id"
+                      default_group_by="service_container_id"
                       event_open_popup="true"
                       zoomKey="ctrlKey"
                       colors="#ff0000:employee_ids == false;#00ff00:employee_ids == true;"

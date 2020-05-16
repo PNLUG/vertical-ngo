@@ -20,13 +20,13 @@ class ServiceAllocate(models.Model):
                                           string='Template service',
                                           required=True,
                                           )
-    # global service reference
-    service_global_id = fields.Many2one('service.global',
-                                        string='Global service',
-                                        required=True,
-                                        )
+    # container service reference
+    service_container_id = fields.Many2one('service.container',
+                                           string='Container service',
+                                           required=True,
+                                           )
     # dedicated color
-    service_color = fields.Char('service.template',
+    service_color = fields.Char('Color',
                                 related='service_template_id.base_color')
 
     # assigned vehicles
@@ -75,21 +75,22 @@ class ServiceAllocate(models.Model):
                     employee.name
         return
 
-    # utility to filter global services to template's global services
+    # utility to filter container services to template's container services
     @api.onchange('service_template_id')
-    def _get_template_global(self):
+    def _get_template_container(self):
         """
-        Extract list of global services associated to the template service
+        Extract list of container services associated to the template service
         """
-        global_services = []
+        container_services = []
         # reset value to avoid errors
-        self.service_global_id = [(5)]
-        for glob_srv in self.service_template_id.service_global_ids:
-            global_services.append(glob_srv.id)
+        self.service_container_id = [(5)]
+        for glob_srv in self.service_template_id.service_container_ids:
+            container_services.append(glob_srv.id)
 
-        return {'domain': {'service_global_id': [('id', 'in', global_services)]}}
+        return {'domain': {'service_container_id': [('id', 'in', container_services)]}}
 
-    def generate_service(self, template_id, global_id, date_ini, date_limit, interval):
+    def generate_service(self, template_id, container_id,
+                         date_ini, date_limit, interval):
         """
         _todo_
         """
@@ -108,7 +109,7 @@ class ServiceAllocate(models.Model):
 
             new_service = {
                 "service_template_id"   : template_id,
-                "service_global_id"     : global_id,
+                "service_container_id"     : container_id,
                 "start_sched"            : date_pointer,
                 }
             self.create(new_service)

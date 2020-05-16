@@ -4,22 +4,22 @@
 from odoo import fields, models
 
 
-class ExpectedJob(models.Model):
+class ExpectedSkill(models.Model):
     """
-    Job element expected on a service
+    Employee skills expected on a service
     """
 
     # model
-    _name = 'expected.job'
-    _description = 'Service expected job'
+    _name = 'expected.skill'
+    _description = 'Service expected skills'
 
     # fields
     # minimum quantity
     min_qty = fields.Integer('Minimum quantity', required=True, default=1)
     # maximum quantity: 0 for no limit
     max_qty = fields.Integer('Maximum quantity', help="Value 0 means no limit")
-    # role required
-    job_id = fields.Many2one('hr.job', string='Job')
+    # skill required
+    skill_id = fields.Many2one('hr.skill', string='Skill')
 
     # define record name to display in form view
-    _rec_name = 'job_id'
+    _rec_name = 'skill_id'

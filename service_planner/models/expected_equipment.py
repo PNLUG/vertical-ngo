@@ -4,13 +4,13 @@
 from odoo import fields, models
 
 
-class ExpectedEquipment(models.Model):
+class ExpectedEquipmentCategory(models.Model):
     """
-    Equipment list expected on a service
+    Equipment category list expected on a service
     """
 
     # model
-    _name = 'expected.equipment'
+    _name = 'expected.eqpmnt_cat'
     _description = 'Service expected equipment'
 
     # fields
@@ -18,8 +18,9 @@ class ExpectedEquipment(models.Model):
     min_qty = fields.Integer('Minimum quantity', required=True, default=1)
     # maximum quantity: 0 for no limit
     max_qty = fields.Integer('Maximum quantity', help="Value 0 means no limit")
-    # equipment required
-    equipment_id = fields.Many2one('maintenance.equipment', string='Equipment')
+    # equipment category required
+    eqp_cat_id = fields.Many2one('maintenance.equipment.category',
+                                 string='Equipment category')
 
     # define record name to display in form view
-    _rec_name = 'equipment_id'
+    _rec_name = 'eqp_cat_id'

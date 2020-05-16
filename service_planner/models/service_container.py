@@ -4,13 +4,13 @@
 from odoo import fields, models
 
 
-class ServiceGlobal(models.Model):
+class ServiceContainer(models.Model):
     """
     General service definition that includes several time managed services
     """
 
     # model
-    _name = 'service.global'
+    _name = 'service.container'
     _description = 'General service definition'
 
     # fields
