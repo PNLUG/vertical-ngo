@@ -4,114 +4,11 @@
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl) -->
      
 <odoo>
-    <!-- Define views for plan and levels -->
-    
-    <!-- ############# GLOBAL SERVICE #################### -->
-    <record model="ir.ui.view" id="service_container_tree">
-        <field name="name">Container Service</field>
-        <field name="model">service.container</field>
-        <field name="arch" type="xml">
-            <tree string="Templates">
-                <field name="name"/>
-                <field name="description"/>
-            </tree>
-        </field>
-     </record>
-
-    <!-- ############# EXPECTED SKILL #################### -->
-    <record model="ir.ui.view" id="expected_skill_tree">
-        <field name="name">Expected Skill</field>
-        <field name="model">expected.skill</field>
-        <field name="arch" type="xml">
-            <tree string="Skills">
-                <field name="skill_id"/>
-                <field name="min_qty" string="Min Qty"/>
-                <field name="max_qty" string="Max Qty"/>
-            </tree>
-        </field>
-    </record>
-
-    <!-- ############# EXPECTED EQUIPMENT #################### -->
-    <record model="ir.ui.view" id="expected_equipment_category_tree">
-        <field name="name">Expected Equipment Category</field>
-        <field name="model">expected.eqpmnt_cat</field>
-        <field name="arch" type="xml">
-            <tree string="Equipment Category">
-                <field name="eqp_cat_id"/>
-                <field name="min_qty" string="Min Qty"/>
-                <field name="max_qty" string="Max Qty"/>
-            </tree>
-        </field>
-    </record>
-
-        <!-- ############# EXPECTED VEHICLES #################### -->
-    <record model="ir.ui.view" id="expected_vehicle_type_tree">
-        <field name="name">Expected Vehicle Types</field>
-        <field name="model">expected.vhcl_type</field>
-        <field name="arch" type="xml">
-            <tree string="Vehicle Type">
-                <field name="vehicle_type_id"/>
-                <field name="min_qty" string="Min Qty"/>
-                <field name="max_qty" string="Max Qty"/>
-            </tree>
-        </field>
-    </record>
-
-
-    <!-- ############# SERVICE TEMPLATE #################### -->
-    <record model="ir.ui.view" id="service_template_tree">
-        <field name="name">Service Template</field>
-        <field name="model">service.template</field>
-        <field name="arch" type="xml">
-            <tree string="Templates">
-                <field name="name"/>
-                <field name="service_container_ids" widget="many2many_tags"/>
-                <field name="exp_skill_ids" widget="many2many_tags"/>
-                <field name="exp_vehicle_ids" widget="many2many_tags"/>
-                <field name="exp_eqp_cat_ids" widget="many2many_tags"/>
-            </tree>
-        </field>
-     </record>
-
-     <record model="ir.ui.view" id="service_template_form">
-        <field name="name">Service Template</field>
-        <field name="model">service.template</field>
-        <field name="arch" type="xml">
-            <form string="Service Template">
-                <header>
-                    <button name="%(service_planner.service_generate_wizard)d"
-                        string="Generate Services" type="action" class="oe_highlight"/>
-                </header>
-                <h1><field name="name"/></h1>
-                <group>
-                    <group>
-                        <group>
-                        <field name="service_container_ids"/>
-                        </group>
-                        <br/>
-                        <group>
-                            <group>
-                                <field name="duration"/>
-                                <field name="duration_uom_id"/>
-                                <field name="base_color" widget="color"/>
-                            </group>
-                        </group>
-                    </group>
-                    <group class="sp_td_label">
-                        <field name="exp_skill_ids"/>
-                        <field name="exp_eqp_cat_ids"/>
-                        <field name="exp_vehicle_ids"/>
-                    </group>
-                </group>
-            </form>
-        </field>
-     </record>
 
     <!-- ############# SERVICE ALLOCATED #################### -->
     <record model="ir.ui.view" id="service_allocate_tree">
         <field name="name">Service Allocated</field>
         <field name="model">service.allocate</field>
-        <field name="service_color"/>
         <field name="arch" type="xml">
             <tree string="Allocated">
                 <field name="service_container_id"/>
@@ -135,10 +32,6 @@
         <field name="model">service.allocate</field>
         <field name="arch" type="xml">
             <form string="Allocated">
-                <header>
-                    <button name="%(service_planner.service_generate_wizard)d" 
-                        string="Generate Services" type="action" class="oe_highlight"/>
-                </header>
                 <group>
                     <group>
                         <group>
@@ -161,7 +54,7 @@
                             <field name="state_id"/>
                         </group>
                     </group>
-                    <group>
+                    <group >
                         <field name="vehicle_ids" widget="many2many_tags"/>
                         <field name="employee_ids" widget="many2many_tags"/>
                         <field name="equipment_ids" widget="many2many_tags"/>

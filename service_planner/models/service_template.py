@@ -26,6 +26,10 @@ class ServiceTemplate(models.Model):
     duration_uom_id = fields.Many2one('uom.uom',
                                       string='Unit of Measure')
 
+    # off-duty services identification to manage rest/maintenance conditions
+    off_duty = fields.Boolean('Off Duty', default=False, help='If checked it is a \
+        technical service to manage rest/maintenance conditions')
+
     # expected vehicles
     exp_vehicle_ids = fields.Many2many('expected.vhcl_type',
                                        string='Vehicles')

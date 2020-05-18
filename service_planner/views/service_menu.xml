@@ -54,6 +54,22 @@
         action = "act_service_container"
         />
 
+    <!-- manage Service Collectors -->
+    <act_window
+        id = "act_service_collector"
+        name = "Service Collector"
+        res_model = "service.collector"
+        view_mode = "tree,form"
+        />
+
+    <menuitem
+        id = "menu_service_collector"
+        name = "Service Collector"
+        parent = "menu_template"
+        sequence = "30"
+        action = "act_service_collector"
+        />
+
     <!-- manage Template Services -->
     <act_window
         id = "act_service_template"

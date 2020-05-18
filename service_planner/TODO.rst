@@ -18,10 +18,9 @@ ToDo list
         * DEV lock action on empty cells
         * FIX element dedicatd color (web_calendar)
     * service allocate timeline
-        * FIX check place of generate button
         * DEV try add another level of group (ie. locality)
         * DEV check use
         * FIX show computed field (employee_names)
-        * FIX element dedicatd color (web_timeline)
+        * FIX element dedicated color (web_timeline)
     * service allocate tree
         * FIX service color string
