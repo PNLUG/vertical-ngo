@@ -13,6 +13,8 @@
             <tree string="Templates">
                 <field name="name"/>
                 <field name="off_duty"/>
+                <field name="base_color"
+                    widget="color" options="{'readonly_mode': 'color'}"/>
                 <field name="service_container_ids" widget="many2many_tags"/>
                 <field name="exp_skill_ids" widget="many2many_tags"/>
                 <field name="exp_vehicle_ids" widget="many2many_tags"/>
@@ -26,12 +28,19 @@
         <field name="model">service.template</field>
         <field name="arch" type="xml">
             <form string="Service Template">
-                <header>
-                    <button name="%(service_planner.service_generate_wizard)d"
-                        attrs="{'invisible':[('off_duty','!=',False)]}"
-                        string="Generate Services" type="action" class="oe_highlight"/>
-                </header>
-                <h1><field name="name"/></h1>
+                <group>
+                    <group>
+                        <group>
+                            <h1><field name="name"/></h1>
+                        </group>
+                        <group>
+                            <button name="%(service_planner.service_generate_wizard)d"
+                                attrs="{'invisible':[('off_duty','!=',False)]}"
+                                string="Generate Services" type="action"
+                                class="oe_highlight"/>
+                        </group>
+                    </group>
+                </group>
                 <group>
                     <group>
                         <group>
@@ -45,8 +54,13 @@
                             <group>
                                 <field name="duration"/>
                                 <field name="duration_uom_id"/>
-                                <field name="base_color" widget="color"/>
+                                <field name="base_color" widget="color"
+                                    options="{'readonly_mode': 'color'}"/>
                             </group>
+                        </group>
+                        <br/>
+                        <group attrs="{'invisible':[('off_duty','!=',False)]}">
+                            <field name="next_service_id"/>
                         </group>
                     </group>
                     <group class="sp_td_label" 

@@ -52,7 +52,11 @@ class ServiceAllocate(models.Model):
     stop_real = fields.Datetime('Stop real')
 
     # state of the service
-    state_id = fields.Many2one('service.state', string='State')
+    state = fields.Selection([('planned', 'Planned'),
+                              ('confirmed', 'Confirmed'),
+                              ('closed', 'Closed')
+                              ],
+                             string='State', required=True, default='planned')
 
     @api.depends('start_sched')
     def _compute_stop_sched(self):
@@ -88,30 +92,3 @@ class ServiceAllocate(models.Model):
             container_services.append(glob_srv.id)
 
         return {'domain': {'service_container_id': [('id', 'in', container_services)]}}
-
-    def generate_service(self, template_id, container_id,
-                         date_ini, date_limit, interval):
-        """
-        _todo_
-        """
-
-        serv_tmplt = self.env['service.template'].search([('id', '=', template_id)])
-        date_pointer = datetime.datetime.strptime(date_ini, "%Y-%m-%d %H:%M:%S")
-
-        while True:
-            interval = (interval if interval > serv_tmplt.duration
-                        else serv_tmplt.duration)
-
-            date_pointer = date_pointer + datetime.timedelta(hours=interval)
-            if(date_pointer > datetime.datetime.strptime(date_limit,
-                                                         "%Y-%m-%d %H:%M:%S")):
-                break
-
-            new_service = {
-                "service_template_id"   : template_id,
-                "service_container_id"     : container_id,
-                "start_sched"            : date_pointer,
-                }
-            self.create(new_service)
-
-        return

@@ -11,10 +11,12 @@
         <field name="model">service.allocate</field>
         <field name="arch" type="xml">
             <tree string="Allocated">
+                <field name="id"/>
                 <field name="service_container_id"/>
+                <field name="service_template_id"/>
                 <field name="service_color"
                     widget="color" options="{'readonly_mode': 'color'}"/>
-                <field name="service_template_id"/>
+                <field name="state"/>
                 <field name="start_sched"/>
                 <field name="stop_sched"/>
                 <field name="start_real"/>
@@ -22,7 +24,6 @@
                 <field name="employee_ids" widget="many2many_tags"/>
                 <field name="vehicle_ids" widget="many2many_tags"/>
                 <field name="equipment_ids" widget="many2many_tags"/>
-                <field name="state_id"/>
             </tree>
         </field>
      </record>
@@ -51,10 +52,10 @@
                             <field name="stop_sched"/>
                             <field name="start_real"/>
                             <field name="stop_real"/>
-                            <field name="state_id"/>
+                            <field name="state"/>
                         </group>
                     </group>
-                    <group >
+                    <group>
                         <field name="vehicle_ids" widget="many2many_tags"/>
                         <field name="employee_ids" widget="many2many_tags"/>
                         <field name="equipment_ids" widget="many2many_tags"/>

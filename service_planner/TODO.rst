@@ -6,6 +6,9 @@ ToDo list
         * FIX filter view only to associated record
     * service allocate
         * DEV check template expected fulfillment
+    * service template
+        * DEV configuration of next service
+        * DEV limit to 1 Container Service for off_duty type service
 
 
 **View**

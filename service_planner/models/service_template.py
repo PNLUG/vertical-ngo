@@ -46,3 +46,8 @@ class ServiceTemplate(models.Model):
 
     # identification color
     base_color = fields.Char('Color')
+
+    # Service Template to generate on Service completion
+    next_service_id = fields.Many2one('service.template',
+                                      string='Next Service',
+                                      help='Service to insert after end of this one')

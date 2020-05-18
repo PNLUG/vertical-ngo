@@ -60,9 +60,24 @@ class ServiceGenerateWizard(models.TransientModel):
 
             new_service = {
                 "service_template_id"   : self.service_template_id.id,
-                "service_container_id"     : self.service_container_id.id,
-                "start_sched"            : date_pointer,
+                "service_container_id"  : self.service_container_id.id,
+                "start_sched"           : date_pointer,
                 }
             self.env['service.allocate'].create(new_service)
 
+            # generate next service if present
+            if serv_tmplt.next_service_id:
+                # calculate end of the original service
+                next_strt = date_pointer + datetime.timedelta(hours=serv_tmplt.duration)
+                # get next service template
+                next_serv = serv_tmplt.next_service_id.id
+                # get first container of the next service template
+                next_cont = serv_tmplt.next_service_id.service_container_ids[0].id
+
+                new_service = {
+                    "service_template_id"   : next_serv,
+                    "service_container_id"  : next_cont,
+                    "start_sched"           : next_strt,
+                    }
+                self.env['service.allocate'].create(new_service)
         return
