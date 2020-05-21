@@ -13,12 +13,51 @@
         web_icon="service_planner,static/description/icon.png"
         sequence="110"/>
 
-    <!-- manage Template  -->
+    <!-- manage Template -->
     <menuitem
         id = "menu_template"
-        name = "Template"
+        name = "Templates"
         parent = "menu_service_planner"
         sequence = "120"
+        />
+
+    <!-- manage Rule -->
+    <menuitem
+        id = "menu_rule"
+        name = "Rules"
+        parent = "menu_service_planner"
+        sequence = "130"
+        />
+
+    <!-- Rules -->
+    <act_window
+        id = "act_service_rule"
+        name = "Rules"
+        res_model = "service.rule"
+        view_mode = "tree,form"
+        />
+
+    <menuitem
+        id = "menu_service_rule"
+        name = "Rules"
+        parent = "menu_rule"
+        sequence = "100"
+        action = "act_service_rule"
+        />
+
+    <act_window
+        id = "act_service_ruleclass"
+        name = "Rules Class"
+        res_model = "service.ruleclass"
+        view_mode = "tree,form"
+        />
+
+    <menuitem
+        id = "menu_service_ruleclass"
+        name = "Rules Class"
+        parent = "menu_rule"
+        sequence = "110"
+        action = "act_service_ruleclass"
         />
 
     <!-- Reporting -->

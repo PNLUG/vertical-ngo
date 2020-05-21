@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- service.rule -->
+        <record model="service.rule" id="1">
+          <field name="method">hour_active_week</field>
+          <field name="description">Hours active per week</field>
+        </record>
+        <record model="service.rule" id="2">
+          <field name="method">hour_rest_week</field>
+          <field name="description">Rest hours per week</field>
+        </record>
+    </data>
+</odoo>
+

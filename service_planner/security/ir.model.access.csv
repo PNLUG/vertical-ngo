@@ -6,5 +6,7 @@ access_service_container,access_service_container,model_service_container,base.g
 access_service_state,access_service_state,model_service_state,base.group_user,1,1,1,1
 access_service_template,access_service_template,model_service_template,base.group_user,1,1,1,1
 access_service_allocate,access_service_allocate,model_service_allocate,base.group_user,1,1,1,1
+access_service_rule,access_service_rule,model_service_rule,base.group_user,1,1,0,0
+access_service_ruleclass,access_service_ruleclass,model_service_ruleclass,base.group_user,1,1,1,1
 access_service_collector,access_service_collector,model_service_collector,base.group_user,1,1,1,1
 access_vehicle_type,access_vehicle_type,model_vehicle_type,base.group_user,1,1,1,1 

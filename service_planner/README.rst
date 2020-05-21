@@ -70,6 +70,10 @@ _TODO_
   * Set repetition interval (hours). If interval is inferior to the template duration, this one will be used
   * Click on *Generate* button
 
+**Select Rules → Rule Class**
+  * Create rule Class to assign to resources
+  * _TODO_
+
 **Planning**
  ** Select Service → List view**
   * Select a Service

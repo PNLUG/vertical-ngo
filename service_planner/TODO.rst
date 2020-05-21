@@ -27,3 +27,12 @@ ToDo list
         * FIX element dedicated color (web_timeline)
     * service allocate tree
         * FIX service color string
+    * service rule
+        * DEV add class reference to employee, equipment, vehicle
+        * DEV complete rule method
+
+**Security**
+    * fix model authorizations
+
+**Readme**
+oca-gen-addon-readme --repo-name vertical-ngo --branch 12.0 --addon-dir ~/odoo-dev/odoo12/OCA/addons-custom-sp/service_planner/
