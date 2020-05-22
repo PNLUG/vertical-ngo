@@ -13,6 +13,7 @@
             <tree string="Rule">
                 <field name="description"/>
                 <field name="method"/>
+                <field name="field_ids" widget="many2many_tags"/>
             </tree>
         </field>
     </record>
@@ -39,40 +40,49 @@
                                 class="oe_highlight"/>
                             -->
                         </group>
+                        <br/>
+                        <group>
+                            <field name="field_ids" widget="many2many_tags"/>
+                        </group>
                     </group>
                 </group>
             </form>
         </field>
     </record>
 
-    <!-- ############# SERVICE RULE CLASS #################### -->
-    <record model="ir.ui.view" id="service_ruleclass_tree">
-        <field name="name">Service Rule Class</field>
-        <field name="model">service.ruleclass</field>
+    <!-- ############# SERVICE RULE FIELD #################### -->
+    <record model="ir.ui.view" id="service_rulefield_tree">
+        <field name="name">Service Rule Field</field>
+        <field name="model">service.rulefield</field>
         <field name="arch" type="xml">
-            <tree string="Rule Class">
-                <field name="name"/>
-                <field name="rule_ids" widget="many2many_tags"/>
+            <tree string="Rule Fields">
+                <field name="rule_id"/>
+                <field name="field_name"/>
+                <field name="field_desc"/>
+                <field name="field_default"/>
+                <field name="field_mandatory"/>
             </tree>
         </field>
     </record>
 
-    <record model="ir.ui.view" id="service_ruleclass_form">
-        <field name="name">Service Rule Class</field>
-        <field name="model">service.ruleclass</field>
+    <record model="ir.ui.view" id="service_rulefield_form">
+        <field name="name">Service Rule Fields</field>
+        <field name="model">service.rulefield</field>
         <field name="arch" type="xml">
-            <form string="Service Rule Class">
+            <form string="Service Rule Fields">
                 <group>
                     <group>
                         <group>
-                            <h1><field name="name"/></h1>
-                        </group>
-                        <group>
-                            <field name="rule_ids" widget="many2many_tags"/>
+                            <field name="rule_id"/>
+                            <field name="field_name"/>
+                            <field name="field_desc"/>
+                            <field name="field_default"/>
+                            <field name="field_mandatory"/>
                         </group>
                     </group>
                 </group>
             </form>
         </field>
     </record>
+
 </odoo>

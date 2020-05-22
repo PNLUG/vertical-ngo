@@ -16,9 +16,12 @@
                 <field name="base_color"
                     widget="color" options="{'readonly_mode': 'color'}"/>
                 <field name="service_container_ids" widget="many2many_tags"/>
+                <field name="duration"/>
+                <field name="duration_uom_id"/>
                 <field name="exp_skill_ids" widget="many2many_tags"/>
                 <field name="exp_vehicle_ids" widget="many2many_tags"/>
                 <field name="exp_eqp_cat_ids" widget="many2many_tags"/>
+                <field name="next_service_id"/>
             </tree>
         </field>
     </record>

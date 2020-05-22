@@ -15,6 +15,7 @@ ToDo list
     * service template form
         * FIX custom css loading
         * FIX filter view of expected_* only to associated
+        * FIX eliminate self.id from next list
     * service allocate calendar
         * FIX employee name display (newline separated)
         * DEV text format
@@ -28,7 +29,7 @@ ToDo list
     * service allocate tree
         * FIX service color string
     * service rule
-        * DEV add class reference to employee, equipment, vehicle
+        * DEV add profile reference to employee, equipment, vehicle
         * DEV complete rule method
 
 **Security**

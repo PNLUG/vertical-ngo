@@ -19,6 +19,8 @@ class ServiceRule(models.Model):
     method = fields.Char('Method')
     # rule description
     description = fields.Char('Description')
+    # method fields
+    field_ids = fields.Many2many('service.rulefield', string='Field')
 
     # define record name to display in form view
     _rec_name = 'description'
@@ -36,7 +38,7 @@ class ServiceRule(models.Model):
         """
         Call requested rule
         @param  rule    obj: form select element with name of the rule to call:
-                             had to be in rule_id selection
+                             has to be in rule_id selection
         @return    rule elaboration
         """
 

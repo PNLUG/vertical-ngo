@@ -24,11 +24,13 @@
         ],
     "data": [
         'data/data_service_rule.xml',
+        'data/data_service_rulefield.xml',
         'security/ir.model.access.csv',
         'wizards/service_generate.xml',
         'views/service_menu.xml',
         'views/service_allocate_view.xml',
         'views/service_rule_view.xml',
+        'views/service_profile_view.xml',
         'views/service_collector_view.xml',
         'views/service_container_view.xml',
         'views/service_expected_view.xml',

@@ -46,18 +46,33 @@
         />
 
     <act_window
-        id = "act_service_ruleclass"
-        name = "Rules Class"
-        res_model = "service.ruleclass"
+        id = "act_service_rulefield"
+        name = "Rules Fields"
+        res_model = "service.rulefield"
         view_mode = "tree,form"
         />
 
     <menuitem
-        id = "menu_service_ruleclass"
-        name = "Rules Class"
+        id = "menu_service_rulefield"
+        name = "Rule Fields"
         parent = "menu_rule"
         sequence = "110"
-        action = "act_service_ruleclass"
+        action = "act_service_rulefield"
+        />
+
+    <act_window
+        id = "act_service_profile"
+        name = "Profiles"
+        res_model = "service.profile"
+        view_mode = "tree,form"
+        />
+
+    <menuitem
+        id = "menu_service_profile"
+        name = "Profiles"
+        parent = "menu_rule"
+        sequence = "120"
+        action = "act_service_profile"
         />
 
     <!-- Reporting -->
@@ -89,7 +104,7 @@
         id = "menu_service_container"
         name = "Container Service"
         parent = "menu_template"
-        sequence = "20"
+        sequence = "10"
         action = "act_service_container"
         />
 
@@ -121,7 +136,7 @@
         id = "menu_service_template"
         name = "Service Template"
         parent = "menu_template"
-        sequence = "5"
+        sequence = "20"
         action = "act_service_template"
         />
 

@@ -4,17 +4,19 @@
 from odoo import fields, models
 
 
-class ServiceRuleClass(models.Model):
+class ServiceProfile(models.Model):
     """
     Collection of rules to assign to a resource
     """
 
     # model
-    _name = 'service.ruleclass'
-    _description = 'Class to group rules'
+    _name = 'service.profile'
+    _description = 'Profile to group rules'
 
     # fields
     # name
     name = fields.Char('Name', required=True)
-    # service template to collect
-    rule_ids = fields.Many2many('service.rule', string='Rule')
+    # rule
+
+    # parameter values
+    parameter_ids = fields.Many2many('service.profileparameter', string='Field')
