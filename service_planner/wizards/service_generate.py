@@ -69,7 +69,7 @@ class ServiceGenerateWizard(models.TransientModel):
             # generate next service if present
             if service_template.next_service_id:
                 # calculate end of the original service
-                next_strt = (date_pointer + 
+                next_strt = (date_pointer +
                              datetime.timedelta(hours=service_template.duration))
                 # get next service template
                 next_serv = service_template.next_service_id.id

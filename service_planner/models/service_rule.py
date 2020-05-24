@@ -24,7 +24,7 @@ class ServiceRule(models.Model):
     field_ids = fields.Many2many('service.rulefield', string='Fields')
     # define if rule is used
     is_active = fields.Boolean('Active', default=True,
-                            help='Set if the rule had to be evaluated')
+                               help='Set if the rule had to be evaluated')
 
     # define record name to display in form view
     _rec_name = 'description'
@@ -34,60 +34,69 @@ class ServiceRule(models.Model):
         Check if a resource has more than one shift assigned at same time
         @param  resource_type    string: type of the resource
                                         [all, employee, vehicle, equipment]
-        @param  obj_id          int:    id of the object
+        @param  obj_id          int:    id of the service; -1 to check all services
         """
         # _TODO_ optimize
 
         rule_result = True
         rule_msg = ''
 
-        # check employee
-        if resource_type in ('employee', 'all') :
-            # get the service data
-            for service in self.env['service.allocate'].search([('id', '=', obj_id)]):
-                date_ini=service.scheduled_start
-                date_fin=service.scheduled_stop
+        # select service to check
+        if obj_id > 0:
+            allocate_ids = self.env['service.allocate'].search([('id', '=', obj_id)])
+        else:
+            allocate_ids = self.env['service.allocate'].search([])
 
+        # get the service data
+        for service in allocate_ids:
+            date_ini = service.scheduled_start
+            date_fin = service.scheduled_stop
+
+            if resource_type in ('employee', 'all') :
                 for employee in service.employee_ids:
-                    all_services = self.env['service.allocate'].search([
-                                                    ('id', '!=', obj_id),
-                                                    ('scheduled_start', '<', date_fin),
-                                                    ('scheduled_stop', '>', date_ini),
-                                                    ('state', '!=', 'closed')])
+                    all_services = self.env['service.allocate'] \
+                                       .search([('id', '!=', service.id),
+                                                ('scheduled_start', '<', date_fin),
+                                                ('scheduled_stop', '>', date_ini),
+                                                ('state', '!=', 'closed')
+                                                ])
                     for service_double in all_services:
                         if employee in service_double.employee_ids:
                             rule_result = False
-                            rule_msg += (('%s\n') % (employee.name))
+                            rule_msg += (('Shift %s/%s: %s\n') % (service.id,
+                                                                  service_double.id,
+                                                                  employee.name))
 
-        if resource_type in ('equipment', 'all'):
-            for service in self.env['service.allocate'].search([('id', '=', obj_id)]):
-                date_ini=service.scheduled_start
-                date_fin=service.scheduled_stop
+            if resource_type in ('equipment', 'all'):
                 for equipment in service.equipment_ids:
-                    all_services = self.env['service.allocate'].search([
-                                                    ('id', '!=', obj_id),
-                                                    ('scheduled_start', '<', date_fin),
-                                                    ('scheduled_stop', '>', date_ini),
-                                                    ('state', '!=', 'closed')])
+                    all_services = self.env['service.allocate'] \
+                                       .search([('id', '!=', service.id),
+                                                ('scheduled_start', '<', date_fin),
+                                                ('scheduled_stop', '>', date_ini),
+                                                ('state', '!=', 'closed')
+                                                ])
                     for service_double in all_services:
                         if equipment in service_double.equipment_ids:
                             rule_result = False
-                            rule_msg += (('%s\n') % (equipment.name))
+                            rule_msg += (('Shift %s/%s: %s\n') % (service.id,
+                                                                  service_double.id,
+                                                                  equipment.name))
 
-        if resource_type in ('vehicle', 'all'):
-            for service in self.env['service.allocate'].search([('id', '=', obj_id)]):
-                date_ini=service.scheduled_start
-                date_fin=service.scheduled_stop
+            if resource_type in ('vehicle', 'all'):
                 for vehicle in service.vehicle_ids:
-                    all_services = self.env['service.allocate'].search([
-                                                    ('id', '!=', obj_id),
-                                                    ('scheduled_start', '<', date_fin),
-                                                    ('scheduled_stop', '>', date_ini),
-                                                    ('state', '!=', 'closed')])
+                    all_services = self.env['service.allocate'] \
+                                       .search([('id', '!=', service.id),
+                                                ('scheduled_start', '<', date_fin),
+                                                ('scheduled_stop', '>', date_ini),
+                                                ('state', '!=', 'closed')
+                                                ])
                     for service_double in all_services:
                         if vehicle in service_double.vehicle_ids:
                             rule_result = False
-                            rule_msg += (('%s\n') % (vehicle.name))
+                            rule_msg += (('Shift %s/%s: %s\n') % (service.id,
+                                                                  service_double.id,
+                                                                  vehicle.name))
+
         if not rule_result:
             raise UserError(_('Elements with overlapped shift:\n')+rule_msg)
         return rule_result

@@ -45,7 +45,7 @@ class ServiceAllocate(models.Model):
     scheduled_start = fields.Datetime('Start scheduled', required=True)
     # scheduled start time
     scheduled_stop = fields.Datetime('Stop scheduled',
-                                 compute='_compute_scheduled_stop', store=True)
+                                     compute='_compute_scheduled_stop', store=True)
     # effective start time
     start_real = fields.Datetime('Start real')
     # effective stop time
@@ -55,8 +55,7 @@ class ServiceAllocate(models.Model):
     state = fields.Selection([('planned', 'Planned'),
                               ('confirmed', 'Confirmed'),
                               ('closed', 'Closed')
-                              ],
-                             string='State', required=True, default='planned')
+                              ], string='State', required=True, default='planned')
 
     @api.depends('scheduled_start')
     def _compute_scheduled_stop(self):
@@ -66,7 +65,7 @@ class ServiceAllocate(models.Model):
                 # avoid empty value of duration
                 slot = slot if slot > 0 else 1
                 service.scheduled_stop = (service.scheduled_start +
-                                      datetime.timedelta(hours=slot))
+                                          datetime.timedelta(hours=slot))
 
         return
 
@@ -97,5 +96,12 @@ class ServiceAllocate(models.Model):
         """
         _TODO_ _FIX_ direct call to service.rule.double_assign on the button
         """
-        self.env['service.rule'].double_assign(parameters['resource_typ'], parameters['srv_all_id'])
-        return
+        result = self.env['service.rule'].double_assign(parameters['resource_type'],
+                                                        parameters['srv_id'])
+        return result
+
+    @api.multi
+    def write(self, values):
+        ServiceAllocate_write = super(ServiceAllocate, self).write(values)
+        self.double_assign({'resource_type': 'all', 'srv_id': self.id})
+        return ServiceAllocate_write

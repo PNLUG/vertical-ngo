@@ -11,6 +11,14 @@
         <field name="model">service.allocate</field>
         <field name="arch" type="xml">
             <tree string="Allocated">
+                <!-- _TODO_ _FIX_ 
+                    direct call to service.rule.double_assign on the button 
+                    move to view header
+                    -->
+                <button name="double_assign"
+                        string="Check rules"
+                        context = "{'resource_type':'all', 'srv_id': -1}"
+                        type="object" class="btn-primary"/>
                 <field name="id"/>
                 <field name="service_container_id"/>
                 <field name="service_template_id"/>
@@ -63,7 +71,7 @@
                             call to service.rule.double_assign on the button -->
                         <button name="double_assign"
                                 string="Check rules"
-                                context = "{'resource_typ':'all', 'srv_all_id': id}"
+                                context = "{'resource_type':'all', 'srv_id': id}"
                                 type="object" class="btn-primary"/>
                     </group>
                 </group>
