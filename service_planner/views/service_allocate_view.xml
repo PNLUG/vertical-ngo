@@ -17,8 +17,8 @@
                 <field name="service_color"
                     widget="color" options="{'readonly_mode': 'color'}"/>
                 <field name="state"/>
-                <field name="start_sched"/>
-                <field name="stop_sched"/>
+                <field name="scheduled_start"/>
+                <field name="scheduled_stop"/>
                 <field name="start_real"/>
                 <field name="stop_real"/>
                 <field name="employee_ids" widget="many2many_tags"/>
@@ -48,8 +48,8 @@
                 <group>
                     <group>
                         <group>
-                            <field name="start_sched"/>
-                            <field name="stop_sched"/>
+                            <field name="scheduled_start"/>
+                            <field name="scheduled_stop"/>
                             <field name="start_real"/>
                             <field name="stop_real"/>
                             <field name="state"/>
@@ -77,8 +77,8 @@
         <field name="arch" type="xml">
             <!-- _TODO_ set background color -->
             <calendar
-                date_start="start_sched"
-                date_stop="stop_sched"
+                date_start="scheduled_start"
+                date_stop="scheduled_stop"
                 color="service_template_id"
                 mode="week"
                 >
@@ -95,8 +95,8 @@
         <field name="type">timeline</field>
         <field name="arch" type="xml">
             <!-- _TODO_ set background color -->
-            <timeline date_start="start_sched"
-                      date_stop="stop_sched"
+            <timeline date_start="scheduled_start"
+                      date_stop="scheduled_stop"
                       string="Service"
                       default_group_by="service_container_id"
                       event_open_popup="true"
@@ -107,9 +107,9 @@
                 <templates>
                     <div t-name="timeline-item">
                         From 
-                        <span t-esc="record.start_sched"/>
+                        <span t-esc="record.scheduled_start"/>
                         to
-                        <span t-esc="record.stop_sched"/>
+                        <span t-esc="record.scheduled_stop"/>
                         <br/>
                         Employee
                         <!-- _TODO_ show computed field -->

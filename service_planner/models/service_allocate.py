@@ -42,10 +42,10 @@ class ServiceAllocate(models.Model):
     locality = fields.Char('Locality')
 
     # scheduled start time
-    start_sched = fields.Datetime('Start scheduled', required=True)
+    scheduled_start = fields.Datetime('Start scheduled', required=True)
     # scheduled start time
-    stop_sched = fields.Datetime('Stop scheduled',
-                                 compute='_compute_stop_sched', store=True)
+    scheduled_stop = fields.Datetime('Stop scheduled',
+                                 compute='_compute_scheduled_stop', store=True)
     # effective start time
     start_real = fields.Datetime('Start real')
     # effective stop time
@@ -58,14 +58,14 @@ class ServiceAllocate(models.Model):
                               ],
                              string='State', required=True, default='planned')
 
-    @api.depends('start_sched')
-    def _compute_stop_sched(self):
+    @api.depends('scheduled_start')
+    def _compute_scheduled_stop(self):
         for service in self:
-            if service.start_sched:
+            if service.scheduled_start:
                 slot = service.service_template_id.duration
                 # avoid empty value of duration
                 slot = slot if slot > 0 else 1
-                service.stop_sched = (service.start_sched +
+                service.scheduled_stop = (service.scheduled_start +
                                       datetime.timedelta(hours=slot))
 
         return

@@ -45,15 +45,15 @@ class ServiceRule(models.Model):
         if resource_type in ('employee', 'all') :
             # get the service data
             for service in self.env['service.allocate'].search([('id', '=', obj_id)]):
-                date_ini=service.start_sched
-                date_fin=service.stop_sched
+                date_ini=service.scheduled_start
+                date_fin=service.scheduled_stop
 
                 for employee in service.employee_ids:
                     all_services = self.env['service.allocate'].search([
-                                                        ('id', '!=', obj_id),
-                                                        ('start_sched', '<', date_fin),
-                                                        ('stop_sched', '>', date_ini),
-                                                        ('state', '!=', 'closed')])
+                                                    ('id', '!=', obj_id),
+                                                    ('scheduled_start', '<', date_fin),
+                                                    ('scheduled_stop', '>', date_ini),
+                                                    ('state', '!=', 'closed')])
                     for service_double in all_services:
                         if employee in service_double.employee_ids:
                             rule_result = False
@@ -61,14 +61,14 @@ class ServiceRule(models.Model):
 
         if resource_type in ('equipment', 'all'):
             for service in self.env['service.allocate'].search([('id', '=', obj_id)]):
-                date_ini=service.start_sched
-                date_fin=service.stop_sched
+                date_ini=service.scheduled_start
+                date_fin=service.scheduled_stop
                 for equipment in service.equipment_ids:
                     all_services = self.env['service.allocate'].search([
-                                                        ('id', '!=', obj_id),
-                                                        ('start_sched', '<', date_fin),
-                                                        ('stop_sched', '>', date_ini),
-                                                        ('state', '!=', 'closed')])
+                                                    ('id', '!=', obj_id),
+                                                    ('scheduled_start', '<', date_fin),
+                                                    ('scheduled_stop', '>', date_ini),
+                                                    ('state', '!=', 'closed')])
                     for service_double in all_services:
                         if equipment in service_double.equipment_ids:
                             rule_result = False
@@ -76,14 +76,14 @@ class ServiceRule(models.Model):
 
         if resource_type in ('vehicle', 'all'):
             for service in self.env['service.allocate'].search([('id', '=', obj_id)]):
-                date_ini=service.start_sched
-                date_fin=service.stop_sched
+                date_ini=service.scheduled_start
+                date_fin=service.scheduled_stop
                 for vehicle in service.vehicle_ids:
                     all_services = self.env['service.allocate'].search([
-                                                        ('id', '!=', obj_id),
-                                                        ('start_sched', '<', date_fin),
-                                                        ('stop_sched', '>', date_ini),
-                                                        ('state', '!=', 'closed')])
+                                                    ('id', '!=', obj_id),
+                                                    ('scheduled_start', '<', date_fin),
+                                                    ('scheduled_stop', '>', date_ini),
+                                                    ('state', '!=', 'closed')])
                     for service_double in all_services:
                         if vehicle in service_double.vehicle_ids:
                             rule_result = False
