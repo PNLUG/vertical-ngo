@@ -36,7 +36,8 @@
         'views/service_expected_view.xml',
         'views/service_template_view.xml',
         'views/fleet_vehicle_views.xml',
-        'views/employee_views.xml',
+        'views/employee_partner.xml',
+        'views/employee_profile.xml',
         ],
     "css": [
         'static/src/css/service_planner.css',
