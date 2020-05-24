@@ -92,3 +92,10 @@ class ServiceAllocate(models.Model):
             container_services.append(glob_srv.id)
 
         return {'domain': {'service_container_id': [('id', 'in', container_services)]}}
+
+    def double_assign(self, parameters):
+        """
+        _TODO_ _FIX_ direct call to service.rule.double_assign on the button
+        """
+        self.env['service.rule'].double_assign(parameters['resource_typ'], parameters['srv_all_id'])
+        return

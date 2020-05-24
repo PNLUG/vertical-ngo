@@ -59,6 +59,12 @@
                         <field name="vehicle_ids" widget="many2many_tags"/>
                         <field name="employee_ids" widget="many2many_tags"/>
                         <field name="equipment_ids" widget="many2many_tags"/>
+                        <!-- _TODO_ _FIX_ direct
+                            call to service.rule.double_assign on the button -->
+                        <button name="double_assign"
+                                string="Check rules"
+                                context = "{'resource_typ':'all', 'srv_all_id': id}"
+                                type="object" class="btn-primary"/>
                     </group>
                 </group>
             </form>

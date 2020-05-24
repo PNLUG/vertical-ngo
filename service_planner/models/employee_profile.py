@@ -4,7 +4,7 @@
 from odoo import fields, models
 
 
-class FleetVehicle(models.Model):
+class EmployeeProfile(models.Model):
     """
     Add Profile reference to Employee
     """

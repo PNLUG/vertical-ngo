@@ -1,7 +1,8 @@
 # Copyright 2020 Stefano Consolaro (Ass. PNLUG - Gruppo Odoo <http://odoo.pnlug.it>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import fields, models, _
+from odoo.exceptions import UserError
 
 
 class ServiceRule(models.Model):
@@ -12,27 +13,84 @@ class ServiceRule(models.Model):
 
     # model
     _name = 'service.rule'
-    _description = 'Rule to manage services'
+    _description = 'Rules to manage Services'
 
     # fields
     # method of the rule
     method = fields.Char('Method')
     # rule description
     description = fields.Char('Description')
-    # method fields
-    field_ids = fields.Many2many('service.rulefield', string='Field')
+    # method's fields
+    field_ids = fields.Many2many('service.rulefield', string='Fields')
+    # define if rule is used
+    is_active = fields.Boolean('Active', default=True,
+                            help='Set if the rule had to be evaluated')
 
     # define record name to display in form view
     _rec_name = 'description'
 
-    def double_assign(self, resource, obj_id):
+    def double_assign(self, resource_type, obj_id):
         """
         Check if a resource has more than one shift assigned at same time
-        @param  resource    string: [employee, vehicle, equipment] type of the resource
-        @param  obj_id      int:    id of the object
+        @param  resource_type    string: type of the resource
+                                        [all, employee, vehicle, equipment]
+        @param  obj_id          int:    id of the object
         """
-        # _TODO_
-        return True
+        # _TODO_ optimize
+
+        rule_result = True
+        rule_msg = ''
+
+        # check employee
+        if resource_type in ('employee', 'all') :
+            # get the service data
+            for service in self.env['service.allocate'].search([('id', '=', obj_id)]):
+                date_ini=service.start_sched
+                date_fin=service.stop_sched
+
+                for employee in service.employee_ids:
+                    all_services = self.env['service.allocate'].search([
+                                                        ('id', '!=', obj_id),
+                                                        ('start_sched', '<', date_fin),
+                                                        ('stop_sched', '>', date_ini),
+                                                        ('state', '!=', 'closed')])
+                    for service_double in all_services:
+                        if employee in service_double.employee_ids:
+                            rule_result = False
+                            rule_msg += (('%s\n') % (employee.name))
+
+        if resource_type in ('equipment', 'all'):
+            for service in self.env['service.allocate'].search([('id', '=', obj_id)]):
+                date_ini=service.start_sched
+                date_fin=service.stop_sched
+                for equipment in service.equipment_ids:
+                    all_services = self.env['service.allocate'].search([
+                                                        ('id', '!=', obj_id),
+                                                        ('start_sched', '<', date_fin),
+                                                        ('stop_sched', '>', date_ini),
+                                                        ('state', '!=', 'closed')])
+                    for service_double in all_services:
+                        if equipment in service_double.equipment_ids:
+                            rule_result = False
+                            rule_msg += (('%s\n') % (equipment.name))
+
+        if resource_type in ('vehicle', 'all'):
+            for service in self.env['service.allocate'].search([('id', '=', obj_id)]):
+                date_ini=service.start_sched
+                date_fin=service.stop_sched
+                for vehicle in service.vehicle_ids:
+                    all_services = self.env['service.allocate'].search([
+                                                        ('id', '!=', obj_id),
+                                                        ('start_sched', '<', date_fin),
+                                                        ('stop_sched', '>', date_ini),
+                                                        ('state', '!=', 'closed')])
+                    for service_double in all_services:
+                        if vehicle in service_double.vehicle_ids:
+                            rule_result = False
+                            rule_msg += (('%s\n') % (vehicle.name))
+        if not rule_result:
+            raise UserError(_('Elements with overlapped shift:\n')+rule_msg)
+        return rule_result
 
     def rule_call(self, rule):
         """
