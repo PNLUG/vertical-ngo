@@ -19,7 +19,8 @@ class ExpectedVehicle(models.Model):
     # maximum quantity: 0 for no limit
     max_qty = fields.Integer('Maximum quantity', help="Value 0 means no limit")
     # vehicle
-    vehicle_type_id = fields.Many2one('vehicle.type', string='Vehicle Type')
+    vehicle_type_id = fields.Many2one('vehicle.type', string='Vehicle Type',
+                                      required=True)
 
     # define record name to display in form view
     _rec_name = 'vehicle_type_id'

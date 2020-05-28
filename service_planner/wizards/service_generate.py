@@ -55,16 +55,15 @@ class ServiceGenerateWizard(models.TransientModel):
             interval_set = (interval_set if interval_set > service_template.duration
                             else service_template.duration)
 
-            date_pointer = date_pointer + datetime.timedelta(hours=interval_set)
             if(date_pointer > self.date_stop):
                 break
 
-            new_service = {
+            new_service_data = {
                 "service_template_id"   : self.service_template_id.id,
                 "service_container_id"  : self.service_container_id.id,
                 "scheduled_start"       : date_pointer,
                 }
-            self.env['service.allocate'].create(new_service)
+            new_service_allct = self.env['service.allocate'].create(new_service_data)
 
             # generate next service if present
             if service_template.next_service_id:
@@ -76,10 +75,13 @@ class ServiceGenerateWizard(models.TransientModel):
                 # get first container of the next service template
                 next_cont = service_template.next_service_id.service_container_ids[0].id
 
-                new_service = {
+                new_service_data = {
                     "service_template_id"   : next_serv,
                     "service_container_id"  : next_cont,
                     "scheduled_start"       : next_strt,
+                    "parent_service_id"     : new_service_allct.id,
                     }
-                self.env['service.allocate'].create(new_service)
+                new_service_nxt = self.env['service.allocate'].create(new_service_data)
+                new_service_allct.next_service_id = new_service_nxt.id
+            date_pointer = date_pointer + datetime.timedelta(hours=interval_set)
         return

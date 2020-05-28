@@ -41,40 +41,47 @@
         <field name="model">service.allocate</field>
         <field name="arch" type="xml">
             <form string="Allocated">
-                <group>
+
                     <group>
                         <group>
-                            <field name="service_template_id"/>
-                            <field name="service_container_id" options="{'no_create_edit': True}"/>
+                            <group>
+                                <field name="service_template_id"/>
+                                <field name="service_container_id" options="{'no_create_edit': True}"/>
+                                <br/>
+                                <field name="scheduled_start"/>
+                                <field name="scheduled_stop"/>
+                                <field name="start_real"/>
+                                <field name="stop_real"/>
+                                <field name="state"/>
+                                <br/>
+                                <field name="parent_service_id" readonly="1"/>
+                                <field name="next_service_id" readonly="1"/>
+                            </group>
                         </group>
                         <group>
+                            <field name="employee_ids" widget="many2many_tags"/>
+                            <field name="employee_check" readonly="1" force_save="1"/>
+                            <br/>
+                            <field name="equipment_ids" widget="many2many_tags"/>
+                            <field name="equipment_check" readonly="1" force_save="1"/>
+                            <br/>
+                            <field name="vehicle_ids" widget="many2many_tags"/>
+                            <field name="vehicle_check" readonly="1" force_save="1"/>
+                            <br/>
+                            <!-- _TODO_ _FIX_ direct
+                                call to service.rule.double_assign on the button -->
+                            <button name="double_assign" colspan="2"
+                                    string="Check double assignments"
+                                    context = "{'resource_type':'all', 'srv_id': id}"
+                                    type="object" class="btn-primary"/>
+                            <br/>
+                            <button name="_todo_" colspan="2"
+                                    string="Check rules _todo_"
+                                    context = "{'resource_type':'all', 'srv_id': id}"
+                                    type="object" class="btn-primary"/>
                         </group>
                     </group>
-                    <group>
-                    </group>
-                </group>
-                <group>
-                    <group>
-                        <group>
-                            <field name="scheduled_start"/>
-                            <field name="scheduled_stop"/>
-                            <field name="start_real"/>
-                            <field name="stop_real"/>
-                            <field name="state"/>
-                        </group>
-                    </group>
-                    <group>
-                        <field name="vehicle_ids" widget="many2many_tags"/>
-                        <field name="employee_ids" widget="many2many_tags"/>
-                        <field name="equipment_ids" widget="many2many_tags"/>
-                        <!-- _TODO_ _FIX_ direct
-                            call to service.rule.double_assign on the button -->
-                        <button name="double_assign"
-                                string="Check rules"
-                                context = "{'resource_type':'all', 'srv_id': id}"
-                                type="object" class="btn-primary"/>
-                    </group>
-                </group>
+
             </form>
         </field>
      </record>
@@ -90,9 +97,12 @@
                 color="service_template_id"
                 mode="week"
                 >
+                <field name="parent_service_id"/>
                 <field name="id"/>
                 <field name="service_template_id"/>
                 <field name="employee_names"/>
+
+                <field name="next_service_id"/>
             </calendar>
         </field>
     </record>

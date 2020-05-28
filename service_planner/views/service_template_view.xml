@@ -44,34 +44,49 @@
                         </group>
                     </group>
                 </group>
+
                 <group>
                     <group>
-                        <group>
                             <!-- _TODO_ readonly=1 -->
                             <field name="off_duty" readonly="0"/>
+                            <br/>
                             <!-- <label string="_TODO_ SOLO LETTURA"/> -->
                             <field name="service_container_ids"/>
-                        </group>
-                        <br/>
-                        <group>
-                            <group>
-                                <field name="duration"/>
-                                <field name="duration_uom_id"/>
-                                <field name="base_color" widget="color"
-                                    options="{'readonly_mode': 'color'}"/>
-                            </group>
-                        </group>
-                        <br/>
-                        <group attrs="{'invisible':[('off_duty','!=',False)]}">
-                            <field name="next_service_id"/>
-                        </group>
+                            <field name="duration"/>
+                            <field name="duration_uom_id"/>
+                            <field name="base_color" widget="color"
+                                   options="{'readonly_mode': 'color'}"/>
+                            <br/>
+                            <field name="next_service_id" 
+                                   attrs="{'invisible':[('off_duty','!=',False)]}"/>
                     </group>
+
                     <group class="sp_td_label" 
                         attrs="{'invisible':[('off_duty','!=',False)]}">
-                        <field name="exp_skill_ids"/>
-                        <field name="exp_eqp_cat_ids"/>
-                        <field name="exp_vehicle_ids"/>
+                        <!-- _todo_ _fix_ filter on template id -->
+                         <field name="exp_skill_ids" widget="one2many_list" >
+                            <tree string="Lines" editable="bottom">
+                                <field name="skill_id"/>
+                                <field name="min_qty"/>
+                                <field name="max_qty"/>
+                            </tree>
+                        </field>
+                        <field name="exp_vehicle_ids" widget="one2many_list" >
+                            <tree string="Lines" editable="bottom">
+                                <field name="vehicle_type_id"/>
+                                <field name="min_qty"/>
+                                <field name="max_qty"/>
+                            </tree>
+                        </field>
+                        <field name="exp_eqp_cat_ids" widget="one2many_list" >
+                            <tree string="Lines" editable="bottom">
+                                <field name="eqp_cat_id"/>
+                                <field name="min_qty"/>
+                                <field name="max_qty"/>
+                            </tree>
+                        </field>
                     </group>
+
                 </group>
             </form>
         </field>

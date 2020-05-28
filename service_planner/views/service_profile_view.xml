@@ -31,7 +31,6 @@
                     <group>
                         <field name="parameter_ids" widget="one2many_list">
                             <tree string="Lines" editable="bottom">
-                                <field name="profile_id"/>
                                 <field name="rule_id"/>
                                 <field name="rule_field_id"/>
                                 <field name="field_value"/>
