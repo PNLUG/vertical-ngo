@@ -58,13 +58,13 @@
             equipment type
         -->
         <record id="equipment_type_1" model="expected.eqpmnt_cat">
-            <field name="eqp_cat_id">6</field>
+            <field name="eqp_cat_id">1</field>
         </record>
         <record id="equipment_type_2" model="expected.eqpmnt_cat">
-            <field name="eqp_cat_id">7</field>
+            <field name="eqp_cat_id">2</field>
         </record>
         <record id="equipment_type_3" model="expected.eqpmnt_cat">
-            <field name="eqp_cat_id">8</field>
+            <field name="eqp_cat_id">3</field>
         </record>
 
         <!--
@@ -72,15 +72,15 @@
         -->
         <record id="equipment_1" model="maintenance.equipment">
             <field name="name">Generator set</field>
-            <field name="category_id">6</field>
+            <field name="category_id">1</field>
         </record>
         <record id="equipment_2" model="maintenance.equipment">
             <field name="name">Oxygen tank</field>
-            <field name="category_id">7</field>
+            <field name="category_id">2</field>
         </record>
         <record id="equipment_3" model="maintenance.equipment">
             <field name="name">Defibrillator</field>
-            <field name="category_id">8</field>
+            <field name="category_id">3</field>
         </record>
 
         <!--
@@ -226,21 +226,21 @@
             <field name="name">Call center diurnal</field>
             <field name="service_container_ids" eval="[(4, ref('service_container_2'))]" />
             <field name="duration">12</field>
-            <field name="duration_uom_id">6</field>
+            <field name="duration_uom_id">1</field>
         </record>
 
         <record id="service_template_2" model="service.template">
             <field name="name">Call center night</field>
             <field name="service_container_ids" eval="[(4, ref('service_container_2'))]" />
             <field name="duration">12</field>
-            <field name="duration_uom_id">6</field>
+            <field name="duration_uom_id">1</field>
         </record>
 
         <record id="service_template_3" model="service.template">
             <field name="name">Emergency</field>
             <field name="service_container_ids" eval="[(4, ref('service_container_1'))]" />
             <field name="duration">8</field>
-            <field name="duration_uom_id">6</field>
+            <field name="duration_uom_id">1</field>
             <field name="exp_skill_ids" eval="[(6, 0,[ref('expected_skill_1'),ref('expected_skill_2')])]"/>
             <field name="exp_eqp_cat_ids" eval="[(6, 0,[ref('equipment_type_1'),ref('equipment_type_2'),ref('equipment_type_3')])]"/>
             <field name="exp_vehicle_ids" eval="[(4, ref('vehicle_exp_1'))]" />

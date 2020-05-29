@@ -61,12 +61,12 @@ class ServiceTemplate(models.Model):
         Add control for fields value on record changes
         """
         if ('duration' in values
-            and values['duration'] <= 0):
-                raise ValidationError(_('Enter a value for Duration'))
+                and values['duration'] <= 0):
+            raise ValidationError(_('Enter a value for Duration'))
 
         if ('service_container_ids' in values
-            and len(values['service_container_ids'][0][2]) == 0):
-                raise ValidationError(_('Set a Container Service'))
+                and len(values['service_container_ids'][0][2]) == 0):
+            raise ValidationError(_('Set a Container Service'))
 
         ServiceTemplate_write = super(ServiceTemplate, self).write(values)
         return ServiceTemplate_write
@@ -77,12 +77,10 @@ class ServiceTemplate(models.Model):
         Add control for fields value on new records
         """
         if ('duration' in values
-            and values['duration'] <= 0
-            ):
-                raise ValidationError(_('Enter a value for Duration'))
+                and values['duration'] <= 0):
+            raise ValidationError(_('Enter a value for Duration'))
         if ('service_container_ids' in values
-            and len(values['service_container_ids'][0][2]) == 0
-            ):
-                raise ValidationError(_('Set a Container Service'))
+                and len(values['service_container_ids'][0][2]) == 0):
+            raise ValidationError(_('Set a Container Service'))
         ServiceTemplate_create = super(ServiceTemplate, self).create(values)
         return ServiceTemplate_create

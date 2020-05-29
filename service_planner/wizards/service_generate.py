@@ -26,6 +26,18 @@ class ServiceGenerateWizard(models.TransientModel):
     date_stop = fields.Datetime('Stop date', required=True)
     # standard duration
     interval = fields.Integer('Interval', required=True, default=8)
+    # calendar options
+    day_mon = fields.Boolean('Monday', default=True)
+    day_tue = fields.Boolean('Tuensday', default=True)
+    day_wed = fields.Boolean('Wednesday', default=True)
+    day_thu = fields.Boolean('Thursday', default=True)
+    day_fri = fields.Boolean('Friday', default=True)
+    day_sat = fields.Boolean('Saturday', default=True)
+    day_sun = fields.Boolean('Sunday', default=True)
+    day_wrk = fields.Boolean('Working Days', default=False,
+                             help='Uses only calendar working days')
+    day_hol = fields.Boolean('Holidays', default=False,
+                             help='Include calendar holidays')
 
     # utility to filter container services to template's container services
     @api.onchange('service_template_id')
@@ -50,13 +62,26 @@ class ServiceGenerateWizard(models.TransientModel):
         service_template = self.service_template_id
         date_pointer = self.date_init
         interval_set = self.interval
+        day_week = {0: self.day_mon,
+                    1: self.day_tue,
+                    2: self.day_wed,
+                    3: self.day_thu,
+                    4: self.day_fri,
+                    5: self.day_sat,
+                    6: self.day_sun
+                    }
 
         while True:
             interval_set = (interval_set if interval_set > service_template.duration
                             else service_template.duration)
-
+            # check end of requested period
             if(date_pointer > self.date_stop):
                 break
+            # chek week days requested
+            if not day_week[date_pointer.weekday()]:
+                date_pointer = date_pointer + datetime.timedelta(hours=interval_set)
+                continue
+            # _todo_ check calendar for working days and holidays
 
             new_service_data = {
                 "service_template_id"   : self.service_template_id.id,

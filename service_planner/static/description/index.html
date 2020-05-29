@@ -400,21 +400,54 @@ ul.auto-toc {
 <div class="section" id="usage">
 <h1><a class="toc-backref" href="#id4">Usage</a></h1>
 <p><strong>Steps to follow to use Service Planner</strong></p>
-<p>_TODO_</p>
 <p><strong>Set up</strong></p>
 <blockquote>
 <dl class="docutils">
+<dt><strong>Rules</strong></dt>
+<dd><ul class="first last simple">
+<li>Rules and Rules Fields can not be modified by Users. Read what they do and how to use fields.</li>
+</ul>
+</dd>
+<dt><strong>Select Rules → Profile</strong></dt>
+<dd><ul class="first last simple">
+<li>Create a Profile</li>
+<li>Add rule fields with values</li>
+<li>Add profile to Employees: Employee → get one → fill Service Profile</li>
+</ul>
+</dd>
+<dt><strong>Employee</strong></dt>
+<dd><ul class="first last simple">
+<li>Create desired Skills: get an Employee → Skill tab → add row → create</li>
+</ul>
+</dd>
+<dt><strong>Maintenance → Configuration → Categories</strong></dt>
+<dd><ul class="first last simple">
+<li>Create desired Categories</li>
+</ul>
+</dd>
+<dt><strong>Fleet</strong></dt>
+<dd><ul class="first last simple">
+<li>Create desired Types: get a Vehicle → Vehicle Type → create</li>
+</ul>
+</dd>
 <dt><strong>Select Template → Container Service</strong></dt>
 <dd><ul class="first last simple">
 <li>Create a list of Container Services to collect single services</li>
-<li>_TODO_</li>
 </ul>
 </dd>
 <dt><strong>Select Template → Service Template</strong></dt>
-<dd><ul class="first last simple">
-<li>Create a list of Template Service defining some requirements</li>
-<li>_TODO_</li>
+<dd><ul class="first simple">
+<li>Create a Template Service</li>
 </ul>
+<blockquote class="last">
+<ul class="simple">
+<li>Name, Container Service and Duration are mandatory</li>
+<li>Check if it is an Off Duty Service (normally used to track some informations, ie. rest shifts)</li>
+<li>Add requested Features to be sure to not forget to assign Resources.
+(Minimum quantity if  zero will not be considered)</li>
+<li>Optional, associate a Next Service: this will be automatically generated starting form the end of this one</li>
+</ul>
+</blockquote>
 </dd>
 <dt><strong>Select Template → Service Template → your template</strong></dt>
 <dd><ul class="first last simple">
@@ -424,34 +457,26 @@ ul.auto-toc {
 <li>Select a start date-time</li>
 <li>Select a stop date-time</li>
 <li>Set repetition interval (hours). If interval is inferior to the template duration, this one will be used</li>
+<li>Set available days of week</li>
+<li>Set to use work Calendar</li>
+<li>Set to use holiday</li>
 <li>Click on <em>Generate</em> button</li>
 </ul>
 </dd>
 </dl>
 </blockquote>
 <dl class="docutils">
-<dt><strong>Select Rules → Rule Profile</strong></dt>
-<dd><ul class="first last simple">
-<li>Create rule Profile to assign to resources</li>
-<li>_TODO_</li>
-</ul>
-</dd>
 <dt><strong>Planning</strong></dt>
 <dd><dl class="first last docutils">
 <dt>** Select Service → List view**</dt>
 <dd><ul class="first last simple">
 <li>Select a Service</li>
-<li>Check requirements fulfillment</li>
-<li>Calendar/Timeline: move service</li>
-<li>_TODO_</li>
+<li>Fill resources (eg. Employee, Equipments, Vehicles)</li>
+<li>Check requirements (Template requestested Resources) fulfillment</li>
+<li>Calendar/Timeline: overview / move services</li>
 </ul>
 </dd>
 </dl>
-</dd>
-<dt><strong>Section → SubSection</strong></dt>
-<dd><ul class="first last simple">
-<li>_TODO_</li>
-</ul>
 </dd>
 </dl>
 </div>

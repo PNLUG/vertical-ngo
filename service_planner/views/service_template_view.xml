@@ -63,7 +63,7 @@
 
                     <group class="sp_td_label" 
                         attrs="{'invisible':[('off_duty','!=',False)]}">
-                        <!-- _todo_ _fix_ filter on template id -->
+                        <h1 colspan="2">Requested Features</h1>
                          <field name="exp_skill_ids" widget="one2many_list" >
                             <tree string="Lines" editable="bottom">
                                 <field name="skill_id"/>
