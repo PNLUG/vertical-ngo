@@ -167,11 +167,11 @@
             expected skill
         -->
         <record id="expected_skill_1" model="expected.skill">
-            <field name="skill_id">1</field>
+            <field name="skill_id">2</field>
             <field name="min_qty">2</field>
         </record>
         <record id="expected_skill_2" model="expected.skill">
-            <field name="skill_id">2</field>
+            <field name="skill_id">3</field>
             <field name="min_qty">1</field>
         </record>
 
@@ -224,21 +224,21 @@
         -->
         <record id="service_template_1" model="service.template">
             <field name="name">Call center diurnal</field>
-            <field name="service_container_ids" eval="[(4, ref('service_container_2'))]" />
+            <field name="service_container_ids" eval="[(6, 0, ref('service_container_2'))]" />
             <field name="duration">12</field>
             <field name="duration_uom_id">1</field>
         </record>
 
         <record id="service_template_2" model="service.template">
             <field name="name">Call center night</field>
-            <field name="service_container_ids" eval="[(4, ref('service_container_2'))]" />
+            <field name="service_container_ids" eval="[(6, 0, ref('service_container_2'))]" />
             <field name="duration">12</field>
             <field name="duration_uom_id">1</field>
         </record>
 
         <record id="service_template_3" model="service.template">
             <field name="name">Emergency</field>
-            <field name="service_container_ids" eval="[(4, ref('service_container_1'))]" />
+            <field name="service_container_ids" eval="[(6, 0, ref('service_container_1'))]" />
             <field name="duration">8</field>
             <field name="duration_uom_id">1</field>
             <field name="exp_skill_ids" eval="[(6, 0,[ref('expected_skill_1'),ref('expected_skill_2')])]"/>

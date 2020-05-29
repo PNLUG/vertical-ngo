@@ -32,6 +32,7 @@
                 <field name="employee_ids" widget="many2many_tags"/>
                 <field name="vehicle_ids" widget="many2many_tags"/>
                 <field name="equipment_ids" widget="many2many_tags"/>
+                <field name="generation_key"/>
             </tree>
         </field>
      </record>
@@ -46,6 +47,7 @@
                         <group>
                             <group>
                                 <field name="service_template_id"/>
+                                <field name="off_duty"/>
                                 <field name="service_container_id" options="{'no_create_edit': True}"/>
                                 <br/>
                                 <field name="scheduled_start"/>
@@ -54,13 +56,18 @@
                                 <field name="stop_real"/>
                                 <field name="state"/>
                                 <br/>
-                                <field name="parent_service_id" readonly="1"/>
-                                <field name="next_service_id" readonly="1"/>
+                                <field name="parent_service_id" readonly="1"
+                                    attrs="{'invisible':[('off_duty','==',False)]}"/>
+                                <field name="next_service_id" readonly="1"
+                                    attrs="{'invisible':[('off_duty','!=',False)]}"/>
+                                <br/><br/>
+                                <field name="generation_key" readonly="1"/>
                             </group>
                         </group>
-                        <group>
+                        <group attrs="{'invisible':[('off_duty','!=',False)]}">
                             <field name="employee_ids" widget="many2many_tags"/>
                             <field name="employee_check" readonly="1" force_save="1"/>
+                            <field name="employee_names" force_save="1"/>
                             <br/>
                             <field name="equipment_ids" widget="many2many_tags"/>
                             <field name="equipment_check" readonly="1" force_save="1"/>
@@ -100,8 +107,6 @@
                 <field name="parent_service_id"/>
                 <field name="id"/>
                 <field name="service_template_id"/>
-                <field name="employee_names"/>
-
                 <field name="next_service_id"/>
             </calendar>
         </field>
@@ -122,6 +127,9 @@
                       colors="#ff0000:employee_ids == false;#00ff00:employee_ids == true;"
                       dependency_arrow_old="task_dependency_ids">
                 <field name="id"/>
+                <field name="employee_names"/>
+                <field name="parent_service_id"/>
+                <field name="next_service_id"/>
                 <templates>
                     <div t-name="timeline-item">
                         From 
@@ -129,10 +137,26 @@
                         to
                         <span t-esc="record.scheduled_stop"/>
                         <br/>
+                        ID
+                        <span t-esc="record.id"/>
+                        <!-- _todo_ _fix_ show parent/next id-->
+                        <t t-if="record.parent_service_id or record.next_service_id">
+                            (
+                        </t>
+                        <t t-if="record.parent_service_id">
+                            Parent
+                            <span t-esc="record.parent_service_id"/>
+                        </t>
+                        <t t-if="record.next_service_id">
+                            Next
+                            <span t-esc="record.next_service_id"/>
+                        </t>
+                        <t t-if="record.parent_service_id or record.next_service_id">
+                            )
+                        </t>
+                        <br/>
                         Employee
-                        <!-- _TODO_ show computed field -->
-                        <span t-esc="record.employee_ids"/>
-                        qui non mostra il campo =&gt;<span t-esc="record.employee_names"/>&lt;=
+                        <div t-esc="record.employee_names"/>
                     </div>
                 </templates>
             </timeline>

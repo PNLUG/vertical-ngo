@@ -43,8 +43,8 @@
   * Set to use holiday
   * Click on *Generate* button
 
-**Planning**
- ** Select Service → List view**
+ **Planning**
+  * Select Services → List view*
   * Select a Service
   * Fill resources (eg. Employee, Equipments, Vehicles)
   * Check requirements (Template requestested Resources) fulfillment

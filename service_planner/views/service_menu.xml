@@ -9,7 +9,7 @@
     <!-- manage Service Planner -->
     <menuitem
         id="menu_service_planner"
-        name="Service Planner"
+        name="Services planning"
         web_icon="service_planner,static/description/icon.png"
         sequence="110"/>
 
@@ -54,7 +54,7 @@
 
     <menuitem
         id = "menu_service_rulefield"
-        name = "Rule Fields"
+        name = "Rules Fields"
         parent = "menu_rule"
         sequence = "110"
         action = "act_service_rulefield"
@@ -95,46 +95,46 @@
     <!-- manage Container Services -->
     <act_window
         id = "act_service_container"
-        name = "Container Service"
+        name = "Service Container"
         res_model = "service.container"
         view_mode = "tree,form"
         />
 
     <menuitem
         id = "menu_service_container"
-        name = "Container Service"
+        name = "Service Container"
         parent = "menu_template"
         sequence = "10"
         action = "act_service_container"
         />
 
-    <!-- manage Service Collectors -->
+    <!-- manage Service Aggregators -->
     <act_window
-        id = "act_service_collector"
-        name = "Service Collector"
-        res_model = "service.collector"
+        id = "act_service_aggregator"
+        name = "Services Aggregator"
+        res_model = "service.aggregator"
         view_mode = "tree,form"
         />
 
     <menuitem
-        id = "menu_service_collector"
-        name = "Service Collector"
+        id = "menu_service_aggregator"
+        name = "Services Aggregator"
         parent = "menu_template"
         sequence = "30"
-        action = "act_service_collector"
+        action = "act_service_aggregator"
         />
 
     <!-- manage Template Services -->
     <act_window
         id = "act_service_template"
-        name = "Service Template"
+        name = "Service Templates"
         res_model = "service.template"
         view_mode = "tree,form"
         />
 
     <menuitem
         id = "menu_service_template"
-        name = "Service Template"
+        name = "Service Templates"
         parent = "menu_template"
         sequence = "20"
         action = "act_service_template"
@@ -191,14 +191,14 @@
     <!-- manage Services Allocated -->
     <act_window
         id = "act_service_allocate_cal"
-        name = "Service"
+        name = "Services"
         res_model = "service.allocate"
         view_mode = "calendar,timeline,tree,form"
         />
 
     <menuitem
         id = "menu_service_allocate_cal"
-        name = "Service"
+        name = "Services"
         parent = "menu_service_planner"
         sequence = "100"
         action = "act_service_allocate_cal"

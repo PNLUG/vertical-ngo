@@ -21,7 +21,7 @@
                 <field name="exp_skill_ids" widget="many2many_tags"/>
                 <field name="exp_vehicle_ids" widget="many2many_tags"/>
                 <field name="exp_eqp_cat_ids" widget="many2many_tags"/>
-                <field name="next_service_id"/>
+                <field name="next_template_id"/>
             </tree>
         </field>
     </record>
@@ -57,7 +57,7 @@
                             <field name="base_color" widget="color"
                                    options="{'readonly_mode': 'color'}"/>
                             <br/>
-                            <field name="next_service_id" 
+                            <field name="next_template_id" 
                                    attrs="{'invisible':[('off_duty','!=',False)]}"/>
                     </group>
 

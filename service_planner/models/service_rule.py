@@ -98,7 +98,7 @@ class ServiceRule(models.Model):
                                                                   vehicle.name))
 
         if not rule_result:
-            raise UserError(_('Elements with overlapped shift:\n')+rule_msg)
+            raise UserError(_('Elements with overlapped shift:')+'\n'+rule_msg)
         return rule_result
 
     def rule_call(self, rule):

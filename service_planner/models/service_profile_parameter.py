@@ -14,8 +14,6 @@ class ServiceProfileParameter(models.Model):
     _description = 'Define value of fields used by rules in profile'
 
     # fields
-    # profile reference
-    profile_id = fields.Many2one('service.profile', 'Profile')
     # rule reference
     rule_id = fields.Many2one('service.rule', 'Rule')
     # rule field

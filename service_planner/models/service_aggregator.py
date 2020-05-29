@@ -4,15 +4,15 @@
 from odoo import fields, models
 
 
-class ServiceCollector(models.Model):
+class ServiceAggregator(models.Model):
     """
-    Collector of service templates to calculate final values
+    Aggregator of service templates to calculate final values
     eg. amount of hours worked, number of rest shift in a month
     """
 
     # model
-    _name = 'service.collector'
-    _description = 'Collector of service templates'
+    _name = 'service.aggregator'
+    _description = 'Aggregator of service templates'
 
     # fields
     # name

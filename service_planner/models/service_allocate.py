@@ -20,11 +20,18 @@ class ServiceAllocate(models.Model):
                                           string='Template service',
                                           required=True,
                                           )
+    # off duty service
+    off_duty = fields.Boolean('Off Duty',
+                              related='service_template_id.off_duty')
+
     # container service reference
     service_container_id = fields.Many2one('service.container',
                                            string='Container service',
                                            required=True,
                                            )
+    # generation key (eg. to select a list of aumatic generated services)
+    generation_key = fields.Char('Generation Key',
+                                 help='Group services generated automatically')
     # dedicated color
     service_color = fields.Char('Color',
                                 related='service_template_id.base_color')
@@ -237,12 +244,45 @@ class ServiceAllocate(models.Model):
                                                         parameters['srv_id'])
         return result
 
+    @api.model
+    def create(self, values):
+        """
+        Override create function to manage next service generation
+        """
+        new_service = super(ServiceAllocate, self).create(values)
+
+        # generation key can be set by the automatic flow
+        if not new_service.generation_key:
+            new_service.generation_key = datetime.datetime.now(). \
+                strftime("M %Y-%m-%d-%H-%M-%S")
+
+        # generate next service if present on template
+        if new_service.service_template_id.next_template_id.id:
+            # get end of the original service
+            next_strt = new_service.scheduled_stop
+            # get next service template
+            next_serv = new_service.service_template_id.next_template_id.id
+            # get first container of the next service template
+            next_cont = new_service.service_template_id.service_container_ids[0].id
+
+            new_service_data = {
+                "service_template_id"   : next_serv,
+                "service_container_id"  : next_cont,
+                "scheduled_start"       : next_strt,
+                "parent_service_id"     : new_service.id,
+                "generation_key"        : new_service.generation_key,
+                }
+            new_service_nxt = super(ServiceAllocate, self).create(new_service_data)
+            # save child reference
+            new_service.next_service_id = new_service_nxt
+
+        return new_service
+
     @api.multi
     def write(self, values):
         """
-        Check elements for double assigns before save
+        Override with check elements for double assigns before save
         """
-
         ServiceAllocate_write = super(ServiceAllocate, self).write(values)
         # call double assignment
         self.double_assign({'resource_type': 'all', 'srv_id': self.id})
@@ -252,7 +292,7 @@ class ServiceAllocate(models.Model):
     @api.multi
     def unlink(self):
         """
-        Add unlink for next services
+        Override with unlink for next services
         """
         # scan services for next element
         for service in self:

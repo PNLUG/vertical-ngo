@@ -70,43 +70,34 @@ class ServiceGenerateWizard(models.TransientModel):
                     5: self.day_sat,
                     6: self.day_sun
                     }
+        generation_key = datetime.datetime.now().strftime("A %Y-%m-%d-%H-%M-%S")
 
         while True:
+            # get minimum between interval and duration
             interval_set = (interval_set if interval_set > service_template.duration
                             else service_template.duration)
+
             # check end of requested period
             if(date_pointer > self.date_stop):
                 break
+
             # chek week days requested
             if not day_week[date_pointer.weekday()]:
+                # calculate next start date
                 date_pointer = date_pointer + datetime.timedelta(hours=interval_set)
                 continue
+
             # _todo_ check calendar for working days and holidays
 
             new_service_data = {
                 "service_template_id"   : self.service_template_id.id,
                 "service_container_id"  : self.service_container_id.id,
                 "scheduled_start"       : date_pointer,
+                "generation_key"        : generation_key,
                 }
-            new_service_allct = self.env['service.allocate'].create(new_service_data)
 
-            # generate next service if present
-            if service_template.next_service_id:
-                # calculate end of the original service
-                next_strt = (date_pointer +
-                             datetime.timedelta(hours=service_template.duration))
-                # get next service template
-                next_serv = service_template.next_service_id.id
-                # get first container of the next service template
-                next_cont = service_template.next_service_id.service_container_ids[0].id
+            self.env['service.allocate'].create(new_service_data)
 
-                new_service_data = {
-                    "service_template_id"   : next_serv,
-                    "service_container_id"  : next_cont,
-                    "scheduled_start"       : next_strt,
-                    "parent_service_id"     : new_service_allct.id,
-                    }
-                new_service_nxt = self.env['service.allocate'].create(new_service_data)
-                new_service_allct.next_service_id = new_service_nxt.id
+            # calculate next start date
             date_pointer = date_pointer + datetime.timedelta(hours=interval_set)
         return

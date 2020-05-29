@@ -48,8 +48,7 @@
         <field name="model">service.profileparameter</field>
         <field name="arch" type="xml">
             <tree string="Profile Param">
-                <field name="profile_id"/>
-                <field name="rule_id"/>
+                 <field name="rule_id"/>
                 <field name="rule_field_id"/>
                 <field name="field_value"/>
             </tree>
@@ -63,7 +62,6 @@
             <form string="Service Profile Param">
                 <group>
                     <group>
-                        <field name="profile_id"/>
                         <field name="rule_id"/>
                         <field name="rule_field_id"/>
                         <field name="field_value"/>

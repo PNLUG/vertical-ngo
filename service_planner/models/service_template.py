@@ -29,8 +29,9 @@ class ServiceTemplate(models.Model):
                                       string='Unit of Measure')
 
     # off-duty services identification to manage rest/maintenance conditions
-    off_duty = fields.Boolean('Off Duty', default=False, help='Check if it is a \
-        technical service to manage rest/maintenance conditions')
+    off_duty = fields.Boolean('Off Duty', default=False,
+                              help='Check if it is a technical '
+                                   'service to manage rest/maintenance conditions')
 
     # expected vehicles
     exp_vehicle_ids = fields.Many2many('expected.vhcl_type',
@@ -50,7 +51,7 @@ class ServiceTemplate(models.Model):
     base_color = fields.Char('Color')
 
     # Service Template to generate on Service completion
-    next_service_id = fields.Many2one(
+    next_template_id = fields.Many2one(
         'service.template',
         string='Next Service',
         help='Service Template to insert after the end of this one')

@@ -2,12 +2,13 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
-    "name":     "Vertical NGO - Service Plan",
-    "summary":  "Management of service planning.",
+    "name":     "Vertical NGO - Services Plan",
+    "summary":  "Management of services planning.",
     "version":  "12.0.1.0.0",
 
-    "author":   "Associazione PNLUG - Gruppo Odoo, Odoo Community Association (OCA)",
-    "website":  "https://gitlab.com/PNLUG/",
+    "author":   "Stefano Consolaro, "
+                "Associazione PNLUG - Gruppo Odoo",
+    "website":  "https://github.com/PNLUG/vertical-ngo/",
     "license":  "AGPL-3",
 
     "category": "Logistics",
@@ -32,7 +33,7 @@
         'views/service_allocate_view.xml',
         'views/service_rule_view.xml',
         'views/service_profile_view.xml',
-        'views/service_collector_view.xml',
+        'views/service_aggregator_view.xml',
         'views/service_container_view.xml',
         'views/service_expected_view.xml',
         'views/service_template_view.xml',
