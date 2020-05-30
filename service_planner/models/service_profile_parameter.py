@@ -20,3 +20,6 @@ class ServiceProfileParameter(models.Model):
     rule_field_id = fields.Many2one('service.rulefield', 'Field')
     # Value to use in method
     field_value = fields.Char('Value')
+
+    # define record name to display in form view
+    _rec_name = 'rule_id'

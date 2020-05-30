@@ -26,7 +26,7 @@
     "data": [
         'data/data_service_rule.xml',
         'data/data_service_rulefield.xml',
-        # 'data/demo.xml',
+        'data/demo.xml',
         'security/ir.model.access.csv',
         'wizards/service_generate.xml',
         'views/service_menu.xml',

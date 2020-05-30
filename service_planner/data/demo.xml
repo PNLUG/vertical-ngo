@@ -2,9 +2,7 @@
 <odoo>
     <data noupdate="1">
 
-        <!--
-             vehicle type
-        -->
+        <!-- vehicle type -->
         <record id="vehicle_type_1" model="vehicle.type">
             <field name="name">Ambulance</field>
         </record>
@@ -15,32 +13,31 @@
             <field name="name">Pickup</field>
         </record>
 
-        <!--
-             expected vehicle type
-        -->
+        <!-- expected vehicle type -->
         <record id="vehicle_exp_1" model="expected.vhcl_type">
-            <field name="vehicle_type_id">1</field>
+            <field name="vehicle_type_id" eval="ref('vehicle_type_1')"/>
             <field name="min_qty">1</field>
             <field name="max_qty">1</field>
         </record>
-        <record id="vehicle_type_2" model="expected.vhcl_type">
-            <field name="vehicle_type_id">2</field>
+        <record id="vehicle_exp_2" model="expected.vhcl_type">
+            <field name="vehicle_type_id" eval="ref('vehicle_type_2')"/>
             <field name="min_qty">1</field>
             <field name="max_qty">1</field>
         </record>
 
-        <!--
-             fleet vehicle
-        -->
+        <!-- fleet vehicle -->
         <record id="vehicle_1" model="fleet.vehicle">
             <field name="model_id">1</field>
             <field name="vehicle_type_id">1</field>
             <field name="license_plate">PN-2020-LUG</field>
         </record>
+        <record id="vehicle_2" model="fleet.vehicle">
+            <field name="model_id">1</field>
+            <field name="vehicle_type_id">1</field>
+            <field name="license_plate">OD-2020-OO</field>
+        </record>
 
-        <!--
-            equipment category
-        -->
+        <!-- equipment category -->
         <record id="equipment_cat_1" model="maintenance.equipment.category">
             <field name="name">Electrical continuity</field>
         </record>
@@ -54,38 +51,44 @@
             <field name="name">Hardware</field>
         </record>
 
-        <!--
-            equipment type
-        -->
+        <!-- equipment type -->
         <record id="equipment_type_1" model="expected.eqpmnt_cat">
-            <field name="eqp_cat_id">1</field>
+            <field name="eqp_cat_id" eval="ref('equipment_cat_1')"/>
         </record>
         <record id="equipment_type_2" model="expected.eqpmnt_cat">
-            <field name="eqp_cat_id">2</field>
+            <field name="eqp_cat_id" eval="ref('equipment_cat_2')"/>
         </record>
         <record id="equipment_type_3" model="expected.eqpmnt_cat">
-            <field name="eqp_cat_id">3</field>
+            <field name="eqp_cat_id" eval="ref('equipment_cat_3')"/>
         </record>
 
-        <!--
-            equipment dedicated
-        -->
+        <!-- equipment dedicated -->
         <record id="equipment_1" model="maintenance.equipment">
-            <field name="name">Generator set</field>
-            <field name="category_id">1</field>
+            <field name="name">Generator set 1</field>
+            <field name="category_id" eval="ref('equipment_cat_1')"/>
         </record>
         <record id="equipment_2" model="maintenance.equipment">
-            <field name="name">Oxygen tank</field>
-            <field name="category_id">2</field>
+            <field name="name">Oxygen tank 1</field>
+            <field name="category_id" eval="ref('equipment_cat_2')"/>
         </record>
         <record id="equipment_3" model="maintenance.equipment">
-            <field name="name">Defibrillator</field>
-            <field name="category_id">3</field>
+            <field name="name">Defibrillator 1</field>
+            <field name="category_id" eval="ref('equipment_cat_3')"/>
+        </record>
+        <record id="equipment_4" model="maintenance.equipment">
+            <field name="name">Generator set 2</field>
+            <field name="category_id" eval="ref('equipment_cat_1')"/>
+        </record>
+        <record id="equipment_5" model="maintenance.equipment">
+            <field name="name">Oxygen tank 2</field>
+            <field name="category_id" eval="ref('equipment_cat_2')"/>
+        </record>
+        <record id="equipment_6" model="maintenance.equipment">
+            <field name="name">Defibrillator 2</field>
+            <field name="category_id" eval="ref('equipment_cat_3')"/>
         </record>
 
-        <!--
-            service profileparameter
-        -->
+        <!-- service profileparameter -->
         <record id="service_profileparameter_1" model="service.profileparameter">
             <field name="rule_id">1</field>
             <field name="rule_field_id">1</field>
@@ -102,14 +105,12 @@
             <field name="field_value">40</field>
         </record>
         <record id="service_profileparameter_4" model="service.profileparameter">
-            <field name="rule_id">3</field>
+            <field name="rule_id">1</field>
             <field name="rule_field_id">1</field>
-            <field name="field_value">50</field>
+            <field name="field_value">16</field>
         </record>
 
-        <!--
-            service profiles
-        -->
+        <!-- service profiles -->
         <record id="service_profile_1" model="service.profile">
             <field name="name">Nurse professional</field>
             <field name="parameter_ids" eval="[(6, 0,[ref('service_profileparameter_1'),ref('service_profileparameter_4')])]"/>
@@ -122,34 +123,46 @@
             <field name="name">Driver professional</field>
             <field name="parameter_ids" eval="[(4, ref('service_profileparameter_2'))]" />
         </record>
+        <record id="service_profile_4" model="service.profile">
+            <field name="name">Controller</field>
+            <field name="parameter_ids" eval="[(4, ref('service_profileparameter_4'))]" />
+        </record>
 
-        <!--
-             hr employee
-        -->
+        <!-- hr employee -->
         <record id="hr_employee_1" model="hr.employee">
             <field name="name">Fabrizio Bianchi</field>
-            <field name="profile_id">3</field>
+            <field name="profile_id" eval="ref('service_profile_3')"/>
         </record>
         <record id="hr_employee_2" model="hr.employee">
             <field name="name">Roberto Testa</field>
-            <field name="profile_id">1</field>
+            <field name="profile_id" eval="ref('service_profile_1')"/>
         </record>
         <record id="hr_employee_3" model="hr.employee">
             <field name="name">Bianca Monti</field>
-            <field name="profile_id">2</field>
+            <field name="profile_id" eval="ref('service_profile_2')"/>
         </record>
         <record id="hr_employee_4" model="hr.employee">
             <field name="name">Moreno Rossi</field>
-            <field name="profile_id">3</field>
+            <field name="profile_id" eval="ref('service_profile_3')"/>
         </record>
         <record id="hr_employee_5" model="hr.employee">
             <field name="name">Luca Verdi</field>
-            <field name="profile_id">1</field>
+            <field name="profile_id" eval="ref('service_profile_1')"/>
+        </record>
+        <record id="hr_employee_6" model="hr.employee">
+            <field name="name">Dina Lampa</field>
+            <field name="profile_id" eval="ref('service_profile_1')"/>
+        </record>
+        <record id="hr_employee_7" model="hr.employee">
+            <field name="name">Dario Lampa</field>
+            <field name="profile_id" eval="ref('service_profile_1')"/>
+        </record>
+        <record id="hr_employee_8" model="hr.employee">
+            <field name="name">Dino Como</field>
+            <field name="profile_id" eval="ref('service_profile_1')"/>
         </record>
 
-        <!--
-            hr skill
-        -->
+        <!-- hr skill -->
         <record id="hr_skill_1" model="hr.skill">
             <field name="name">Nurse</field>
         </record>
@@ -162,54 +175,70 @@
         <record id="hr_skill_4" model="hr.skill">
             <field name="name">Pilot</field>
         </record>
+        <record id="hr_skill_5" model="hr.skill">
+            <field name="name">Controller</field>
+        </record>
 
-        <!--
-            expected skill
-        -->
+        <!-- expected skill -->
         <record id="expected_skill_1" model="expected.skill">
-            <field name="skill_id">2</field>
+            <field name="skill_id" eval="ref('hr_skill_1')"/>
             <field name="min_qty">2</field>
         </record>
         <record id="expected_skill_2" model="expected.skill">
-            <field name="skill_id">3</field>
+            <field name="skill_id" eval="ref('hr_skill_2')"/>
             <field name="min_qty">1</field>
         </record>
 
-        <!--
-            hr employee skill
-        -->
+        <!-- hr employee skill -->
         <record id="hr_employee_skill_1" model="hr.employee.skill">
-            <field name="employee_id">21</field>
-            <field name="skill_id">1</field>
+            <field name="employee_id" eval="ref('hr_employee_1')"/>
+            <field name="skill_id" eval="ref('hr_skill_1')"/>
         </record>
         <record id="hr_employee_skill_2" model="hr.employee.skill">
-            <field name="employee_id">21</field>
-            <field name="skill_id">2</field>
-        </record>
-        <record id="hr_employee_skill_3" model="hr.employee.skill">
-            <field name="employee_id">22</field>
-            <field name="skill_id">1</field>
-        </record>
-        <record id="hr_employee_skill_4" model="hr.employee.skill">
-            <field name="employee_id">23</field>
-            <field name="skill_id">1</field>
-        </record>
-        <record id="hr_employee_skill_5" model="hr.employee.skill">
-            <field name="employee_id">24</field>
-            <field name="skill_id">2</field>
-        </record>
-        <record id="hr_employee_skill_6" model="hr.employee.skill">
-            <field name="employee_id">25</field>
-            <field name="skill_id">2</field>
-        </record>
-        <record id="hr_employee_skill_7" model="hr.employee.skill">
-            <field name="employee_id">25</field>
-            <field name="skill_id">4</field>
+            <field name="employee_id" eval="ref('hr_employee_1')"/>
+            <field name="skill_id" eval="ref('hr_skill_2')"/>
         </record>
 
-        <!--
-            service container
-        -->
+        <record id="hr_employee_skill_3" model="hr.employee.skill">
+            <field name="employee_id" eval="ref('hr_employee_2')"/>
+            <field name="skill_id" eval="ref('hr_skill_1')"/>
+        </record>
+
+        <record id="hr_employee_skill_4" model="hr.employee.skill">
+            <field name="employee_id" eval="ref('hr_employee_3')"/>
+            <field name="skill_id" eval="ref('hr_skill_2')"/>
+        </record>
+
+        <record id="hr_employee_skill_5" model="hr.employee.skill">
+            <field name="employee_id" eval="ref('hr_employee_4')"/>
+            <field name="skill_id" eval="ref('hr_skill_1')"/>
+        </record>
+
+        <record id="hr_employee_skill_6" model="hr.employee.skill">
+            <field name="employee_id" eval="ref('hr_employee_5')"/>
+            <field name="skill_id" eval="ref('hr_skill_1')"/>
+        </record>
+        <record id="hr_employee_skill_7" model="hr.employee.skill">
+            <field name="employee_id" eval="ref('hr_employee_5')"/>
+            <field name="skill_id" eval="ref('hr_skill_3')"/>
+        </record>
+
+        <record id="hr_employee_skill_8" model="hr.employee.skill">
+            <field name="employee_id" eval="ref('hr_employee_6')"/>
+            <field name="skill_id" eval="ref('hr_skill_2')"/>
+        </record>
+
+        <record id="hr_employee_skill_9" model="hr.employee.skill">
+            <field name="employee_id" eval="ref('hr_employee_7')"/>
+            <field name="skill_id" eval="ref('hr_skill_5')"/>
+        </record>
+
+        <record id="hr_employee_skill_10" model="hr.employee.skill">
+            <field name="employee_id" eval="ref('hr_employee_8')"/>
+            <field name="skill_id" eval="ref('hr_skill_5')"/>
+        </record>
+
+        <!-- service container -->
         <record id="service_container_1" model="service.container">
             <field name="name">Emergency support</field>
             <field name="description">Non-stop emergency</field>
@@ -218,218 +247,255 @@
             <field name="name">Call center</field>
             <field name="description">Non-stop call center</field>
         </record>
+        <record id="service_container_3" model="service.container">
+            <field name="name">Off Duty</field>
+            <field name="description">Rest/Maintenance shifts</field>
+        </record>
 
-        <!--
-             service template
-        -->
+        <!-- service template -->
         <record id="service_template_1" model="service.template">
             <field name="name">Call center diurnal</field>
-            <field name="service_container_ids" eval="[(6, 0, ref('service_container_2'))]" />
-            <field name="duration">12</field>
-            <field name="duration_uom_id">1</field>
+            <field name="service_container_ids" eval="[(6, 0,[ref('service_container_2')])]"/>
+            <field name="duration">16</field>
+            <field name="duration_uom_id">6</field>
         </record>
 
         <record id="service_template_2" model="service.template">
             <field name="name">Call center night</field>
-            <field name="service_container_ids" eval="[(6, 0, ref('service_container_2'))]" />
-            <field name="duration">12</field>
-            <field name="duration_uom_id">1</field>
+            <field name="service_container_ids" eval="[(6, 0,[ref('service_container_2')])]"/>
+            <field name="duration">16</field>
+            <field name="duration_uom_id">6</field>
         </record>
 
         <record id="service_template_3" model="service.template">
-            <field name="name">Emergency</field>
-            <field name="service_container_ids" eval="[(6, 0, ref('service_container_1'))]" />
+            <field name="name">Rest</field>
+            <field name="service_container_ids" eval="[(6, 0,[ref('service_container_3')])]"/>
             <field name="duration">8</field>
-            <field name="duration_uom_id">1</field>
-            <field name="exp_skill_ids" eval="[(6, 0,[ref('expected_skill_1'),ref('expected_skill_2')])]"/>
-            <field name="exp_eqp_cat_ids" eval="[(6, 0,[ref('equipment_type_1'),ref('equipment_type_2'),ref('equipment_type_3')])]"/>
-            <field name="exp_vehicle_ids" eval="[(4, ref('vehicle_exp_1'))]" />
+            <field name="duration_uom_id">6</field>
+            <field name="off_duty">True</field>
         </record>
 
-        <!--
-             service allocate - emergency
-        -->
+        <record id="service_template_4" model="service.template">
+            <field name="name">Emergency</field>
+            <field name="service_container_ids" eval="[(6, 0,[ref('service_container_1')])]"/>
+            <field name="duration">8</field>
+            <field name="duration_uom_id">6</field>
+            <field name="next_template_id" eval="ref('service_template_3')"/>
+            <field name="exp_skill_ids" eval="[(6, 0, [ref('expected_skill_1'),ref('expected_skill_2')])]"/>
+            <field name="exp_eqp_cat_ids" eval="[(6, 0, [ref('equipment_type_1'),ref('equipment_type_2'),ref('equipment_type_3')])]"/>
+            <field name="exp_vehicle_ids" eval="[(6, 0, [ref('vehicle_exp_1')])]" />
+        </record>
+
+        <!-- service allocate - emergency -->
         <record id="service_allocate_010" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(1)).strftime('%Y-%m-%d 06:00:00')"/>
             <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_1')])]"/>
-            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_1'),ref('equipment_2')])]"/>
-            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_2'),ref('hr_employee_3'),ref('hr_employee_4')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_1'),ref('equipment_2'),ref('equipment_3')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_1'),ref('hr_employee_2'),ref('hr_employee_3')])]"/>
         </record>
 
         <record id="service_allocate_011" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(1)).strftime('%Y-%m-%d 14:00:00')"/>
-        </record>
-
-        <record id="service_allocate_012" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
-            <field name="state">planned</field>
-            <field name="scheduled_start" eval="(DateTime.today() + timedelta(1)).strftime('%Y-%m-%d 22:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_2')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_4'),ref('equipment_5'),ref('equipment_6')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_4'),ref('hr_employee_5'),ref('hr_employee_6')])]"/>
         </record>
 
         <record id="service_allocate_020" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(2)).strftime('%Y-%m-%d 06:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_1')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_1'),ref('equipment_2'),ref('equipment_3')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_1'),ref('hr_employee_2'),ref('hr_employee_3')])]"/>
         </record>
 
         <record id="service_allocate_021" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(2)).strftime('%Y-%m-%d 14:00:00')"/>
-        </record>
-
-        <record id="service_allocate_022" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
-            <field name="state">planned</field>
-            <field name="scheduled_start" eval="(DateTime.today() + timedelta(2)).strftime('%Y-%m-%d 22:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_2')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_4'),ref('equipment_5'),ref('equipment_6')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_4'),ref('hr_employee_5'),ref('hr_employee_6')])]"/>
         </record>
 
         <record id="service_allocate_030" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(3)).strftime('%Y-%m-%d 06:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_1')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_1'),ref('equipment_2'),ref('equipment_3')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_1'),ref('hr_employee_2'),ref('hr_employee_3')])]"/>
         </record>
 
         <record id="service_allocate_031" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(3)).strftime('%Y-%m-%d 14:00:00')"/>
-        </record>
-
-        <record id="service_allocate_032" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
-            <field name="state">planned</field>
-            <field name="scheduled_start" eval="(DateTime.today() + timedelta(3)).strftime('%Y-%m-%d 22:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_2')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_4'),ref('equipment_5'),ref('equipment_6')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_4'),ref('hr_employee_5'),ref('hr_employee_6')])]"/>
         </record>
 
         <record id="service_allocate_040" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(4)).strftime('%Y-%m-%d 06:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_1')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_1'),ref('equipment_2'),ref('equipment_3')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_1'),ref('hr_employee_2'),ref('hr_employee_3')])]"/>
         </record>
 
         <record id="service_allocate_041" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(4)).strftime('%Y-%m-%d 14:00:00')"/>
-        </record>
-
-        <record id="service_allocate_042" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
-            <field name="state">planned</field>
-            <field name="scheduled_start" eval="(DateTime.today() + timedelta(4)).strftime('%Y-%m-%d 22:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_2')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_4'),ref('equipment_5'),ref('equipment_6')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_4'),ref('hr_employee_5'),ref('hr_employee_6')])]"/>
         </record>
 
         <record id="service_allocate_050" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(5)).strftime('%Y-%m-%d 06:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_1')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_1'),ref('equipment_2'),ref('equipment_3')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_1'),ref('hr_employee_2'),ref('hr_employee_3')])]"/>
         </record>
 
         <record id="service_allocate_051" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(5)).strftime('%Y-%m-%d 14:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_2')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_4'),ref('equipment_5'),ref('equipment_6')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_4'),ref('hr_employee_5'),ref('hr_employee_6')])]"/>
         </record>
 
-        <record id="service_allocate_052" model="service.allocate">
-            <field name="service_container_id">1</field>
-            <field name="service_template_id">3</field>
+
+        <record id="service_allocate_060" model="service.allocate">
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
             <field name="state">planned</field>
-            <field name="scheduled_start" eval="(DateTime.today() + timedelta(5)).strftime('%Y-%m-%d 22:00:00')"/>
+            <field name="scheduled_start" eval="(DateTime.today() + timedelta(6)).strftime('%Y-%m-%d 06:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_1')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_1'),ref('equipment_2'),ref('equipment_3')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_1'),ref('hr_employee_2'),ref('hr_employee_3')])]"/>
         </record>
 
-        <!--
-             service allocate - call center
-        -->
+        <record id="service_allocate_061" model="service.allocate">
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
+            <field name="state">planned</field>
+            <field name="scheduled_start" eval="(DateTime.today() + timedelta(6)).strftime('%Y-%m-%d 14:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_2')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_4'),ref('equipment_5'),ref('equipment_6')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_4'),ref('hr_employee_5'),ref('hr_employee_6')])]"/>
+        </record>
+
+        <record id="service_allocate_070" model="service.allocate">
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
+            <field name="state">planned</field>
+            <field name="scheduled_start" eval="(DateTime.today() + timedelta(7)).strftime('%Y-%m-%d 06:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_1')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_1'),ref('equipment_2'),ref('equipment_3')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_1'),ref('hr_employee_2'),ref('hr_employee_3')])]"/>
+        </record>
+
+        <record id="service_allocate_071" model="service.allocate">
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
+            <field name="state">planned</field>
+            <field name="scheduled_start" eval="(DateTime.today() + timedelta(7)).strftime('%Y-%m-%d 14:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_2')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_4'),ref('equipment_5'),ref('equipment_6')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_4'),ref('hr_employee_5'),ref('hr_employee_6')])]"/>
+        </record>
+
+        <record id="service_allocate_080" model="service.allocate">
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
+            <field name="state">planned</field>
+            <field name="scheduled_start" eval="(DateTime.today() + timedelta(8)).strftime('%Y-%m-%d 06:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_1')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_1'),ref('equipment_2'),ref('equipment_3')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_1'),ref('hr_employee_2'),ref('hr_employee_3')])]"/>
+        </record>
+
+        <record id="service_allocate_081" model="service.allocate">
+            <field name="service_container_id" eval="ref('service_container_1')"/>
+            <field name="service_template_id" eval="ref('service_template_4')"/>
+            <field name="state">planned</field>
+            <field name="scheduled_start" eval="(DateTime.today() + timedelta(8)).strftime('%Y-%m-%d 14:00:00')"/>
+            <field name="vehicle_ids" eval="[(6, 0,[ref('vehicle_2')])]"/>
+            <field name="equipment_ids" eval="[(6, 0,[ref('equipment_4'),ref('equipment_5'),ref('equipment_6')])]"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_4'),ref('hr_employee_5'),ref('hr_employee_6')])]"/>
+        </record>
+        <!-- service allocate - call center -->
         <record id="service_allocate_110" model="service.allocate">
-            <field name="service_container_id">2</field>
-            <field name="service_template_id">1</field>
+            <field name="service_container_id" eval="ref('service_container_2')"/>
+            <field name="service_template_id" eval="ref('service_template_1')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(1)).strftime('%Y-%m-%d 06:00:00')"/>
-            <field name="employee_ids" eval="[(4, ref('hr_employee_1'))]" />
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_7')])]"/>
         </record>
-
-        <record id="service_allocate_111" model="service.allocate">
-            <field name="service_container_id">2</field>
-            <field name="service_template_id">2</field>
-            <field name="state">planned</field>
-            <field name="scheduled_start" eval="(DateTime.today() + timedelta(1)).strftime('%Y-%m-%d 18:00:00')"/>
-            <field name="employee_ids" eval="[(4, ref('hr_employee_5'))]" />
-        </record>
-
         <record id="service_allocate_120" model="service.allocate">
-            <field name="service_container_id">2</field>
-            <field name="service_template_id">1</field>
+            <field name="service_container_id" eval="ref('service_container_2')"/>
+            <field name="service_template_id" eval="ref('service_template_1')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(2)).strftime('%Y-%m-%d 06:00:00')"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_8')])]"/>
         </record>
-
-        <record id="service_allocate_121" model="service.allocate">
-            <field name="service_container_id">2</field>
-            <field name="service_template_id">2</field>
-            <field name="state">planned</field>
-            <field name="scheduled_start" eval="(DateTime.today() + timedelta(2)).strftime('%Y-%m-%d 18:00:00')"/>
-        </record>
-
         <record id="service_allocate_130" model="service.allocate">
-            <field name="service_container_id">2</field>
-            <field name="service_template_id">1</field>
+            <field name="service_container_id" eval="ref('service_container_2')"/>
+            <field name="service_template_id" eval="ref('service_template_1')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(3)).strftime('%Y-%m-%d 06:00:00')"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_7')])]"/>
         </record>
-
-        <record id="service_allocate_131" model="service.allocate">
-            <field name="service_container_id">2</field>
-            <field name="service_template_id">2</field>
-            <field name="state">planned</field>
-            <field name="scheduled_start" eval="(DateTime.today() + timedelta(3)).strftime('%Y-%m-%d 18:00:00')"/>
-        </record>
-
         <record id="service_allocate_140" model="service.allocate">
-            <field name="service_container_id">2</field>
-            <field name="service_template_id">1</field>
+            <field name="service_container_id" eval="ref('service_container_2')"/>
+            <field name="service_template_id" eval="ref('service_template_1')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(4)).strftime('%Y-%m-%d 06:00:00')"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_8')])]"/>
         </record>
-
-        <record id="service_allocate_141" model="service.allocate">
-            <field name="service_container_id">2</field>
-            <field name="service_template_id">2</field>
-            <field name="state">planned</field>
-            <field name="scheduled_start" eval="(DateTime.today() + timedelta(4)).strftime('%Y-%m-%d 18:00:00')"/>
-        </record>
-
         <record id="service_allocate_150" model="service.allocate">
-            <field name="service_container_id">2</field>
-            <field name="service_template_id">1</field>
+            <field name="service_container_id" eval="ref('service_container_2')"/>
+            <field name="service_template_id" eval="ref('service_template_1')"/>
             <field name="state">planned</field>
             <field name="scheduled_start" eval="(DateTime.today() + timedelta(5)).strftime('%Y-%m-%d 06:00:00')"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_7')])]"/>
         </record>
-
-        <record id="service_allocate_151" model="service.allocate">
-            <field name="service_container_id">2</field>
-            <field name="service_template_id">2</field>
+        <record id="service_allocate_160" model="service.allocate">
+            <field name="service_container_id" eval="ref('service_container_2')"/>
+            <field name="service_template_id" eval="ref('service_template_1')"/>
             <field name="state">planned</field>
-            <field name="scheduled_start" eval="(DateTime.today() + timedelta(5)).strftime('%Y-%m-%d 18:00:00')"/>
+            <field name="scheduled_start" eval="(DateTime.today() + timedelta(6)).strftime('%Y-%m-%d 06:00:00')"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_8')])]"/>
+        </record>
+        <record id="service_allocate_170" model="service.allocate">
+            <field name="service_container_id" eval="ref('service_container_2')"/>
+            <field name="service_template_id" eval="ref('service_template_1')"/>
+            <field name="state">planned</field>
+            <field name="scheduled_start" eval="(DateTime.today() + timedelta(7)).strftime('%Y-%m-%d 06:00:00')"/>
+            <field name="employee_ids" eval="[(6, 0,[ref('hr_employee_7')])]"/>
         </record>
 
     </data>
